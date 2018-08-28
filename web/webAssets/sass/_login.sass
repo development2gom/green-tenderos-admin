@@ -1,0 +1,97 @@
+/*!
+	--------------------------
+	Login
+	--------------------------
+	*/
+
+// ----------- Login Elements
+
+// Form
+body.login-page
+	.panel
+		.panel-body
+			padding: 32px 32px 24px
+
+			.ayuda-soporte
+				align-items: center
+				display: flex
+				flex-direction: column
+				@extend .fs-15
+				justify-content: center
+				span
+					color: $white
+					display: block
+					@extend .fs-16
+				a
+					@extend .fs-15
+	form
+		margin: 32px 0 16px
+
+.form-group
+	&.has-error
+		.help-block
+			color: $error
+			@extend .fs-14
+			margin-top: 4px
+			text-align: left
+
+	&.form-group-actions
+		margin-top: 16px
+
+	&.olvide-contrasena
+		justify-content: flex-end
+		margin-top: 12px
+		text-align: right 
+		a
+			@extend .fs-15
+
+	&.necesito-cuenta
+		color: rgba($white,.85)
+		justify-content: center
+		margin-top: 16px
+		a
+			@extend .fs-16
+
+	&.olvide-contrasena,
+	&.necesito-cuenta
+		display: flex
+		a
+			margin-left: 0
+
+
+// Form material
+.form-material.floating
+	margin-bottom: 12px
+	margin-top: 12px
+
+.form-material.floating + .form-material.floating
+	margin-top: 24px
+
+// Footer Login
+.page-copyright
+	margin-top: 32px
+
+
+// ----------- login
+.login-page
+	// background-color: red
+	.panel
+		background-color: transparent
+		.panel-body
+			.form-registro
+
+				.form-group-check
+					position: relative
+
+					.checkbox-custom
+						position: relative
+						z-index: 3
+
+					.checkbox-mask
+						bottom: 0
+						cursor: pointer
+						left: 0
+						position: absolute
+						right: 0
+						top: 0
+						z-index: 6

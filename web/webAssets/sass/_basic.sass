@@ -1,0 +1,464 @@
+/*!
+	-----------------------------------------------------------------------------
+	2.0 - Basicos
+	-----------------------------------------------------------------------------
+	*/
+
+body
+	background-color: #eee
+	background-color: #f5f5f5
+	font:
+		family: $f-base
+		size: 16px
+		weight: $light
+	color: $font-color
+
+a
+	color: $link
+	font:
+		family: $f-base
+		size: 16px
+	text-decoration: none
+	// +transition(all 0.3s ease-in)
+	&:active,
+	&:focus,
+	&:hover
+		color: darken($link , 10% )
+		text-decoration: none
+
+/*  Btn
+	================================================ */
+.ladda-button
+	background-color: transparent
+	border-radius: 0
+	padding: 0
+
+.btn-primary.ladda-button[disabled],
+.btn-primary.ladda-button[disabled]:hover,
+.btn-primary.ladda-button[data-loading],
+.btn-primary.ladda-button[data-loading]:hover
+	background-color: $primary
+
+.btn-info.ladda-button[disabled],
+.btn-info.ladda-button[disabled]:hover,
+.btn-info.ladda-button[data-loading],
+.btn-info.ladda-button[data-loading]:hover
+	background-color: $info
+
+.btn-success.ladda-button[disabled],
+.btn-success.ladda-button[disabled]:hover,
+.btn-success.ladda-button[data-loading],
+.btn-success.ladda-button[data-loading]:hover
+	background-color: $success
+
+.btn-warning.ladda-button[disabled],
+.btn-warning.ladda-button[disabled]:hover,
+.btn-warning.ladda-button[data-loading],
+.btn-warning.ladda-button[data-loading]:hover
+	background-color: $warning
+
+.btn
+	display: inline-block
+	text-align: center
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	border: 1px solid transparent
+	padding: .375rem .75rem
+	line-height: 1.5
+	font-size: $fs-16
+	font-weight: $regular
+	letter-spacing: 1px
+	border-radius: .25rem
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+
+.btn-primary
+	border-color: $primary
+	background-color: $primary
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus,
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active
+		border-color: darken( $primary, 10% )
+		background-color: darken( $primary, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($primary,0.1)
+
+.btn-secondary
+	border-color: $secondary
+	background-color: $secondary
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $secondary, 10% )
+		background-color: darken( $secondary, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($secondary,0.1)
+
+.btn-outline-primary
+	border-color: $grey-d
+	color: $grey-d
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		box-shadow: 0 0 0 0.1rem rgba($primary,0.1)
+
+.btn-facebook
+	border-color: $facebook
+	background-color: $facebook
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus,
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active
+		border-color: darken( $facebook, 10% )
+		background-color: darken( $facebook, 10% )
+		box-shadow: none
+
+.btn-warning
+	border-color: $accent
+	background-color: $accent
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $accent, 10% )
+		background-color: darken( $accent, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($accent,0.1)
+
+.btn-error
+	border-color: $error
+	background-color: $error
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $error, 10% )
+		background-color: darken( $error, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($error,0.1)
+
+.btn-success
+	border-color: $success
+	background-color: $success
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $success, 10% )
+		background-color: darken( $success, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($success,0.1)
+
+.btn-info
+	border-color: $info
+	background-color: $info
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $info, 10% )
+		background-color: darken( $info, 10% )
+		box-shadow: 0 0 0 0.1rem rgba($info,0.1)
+
+.btn-outline-default
+	background-color: transparent
+	border-color: $font-color
+	color: $font-color
+	&:active,
+	&:focus,
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:active:hover,
+	&:disabled,
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&:hover,
+	&:focus
+		border-color: darken( $font-color, 10% )
+		color: darken( $font-color, 10% )
+		box-shadow: none
+
+/*  Label
+	======================================= */
+/* Normal */
+.page-login-v3
+	form
+		.form-material
+			label
+				color: lighten($font-color, 30%)
+				@extend .fw-light
+
+.form-material
+	.form-control:-webkit-autofill~.floating-label
+		top: -1.3rem
+
+	.form-control~.floating-label
+		padding: 0 10px
+
+/* Active */
+.form-material
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label
+		color: $primary
+		top: -1.3rem
+
+/* Error */
+.form-material.form-group.has-danger
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label,
+	.form-control:not(.empty)~.floating-label
+		color: $error
+		top: -1.3rem
+
+/* Succes */
+.form-material.form-group.has-success
+	.form-control.focus~.floating-label,
+	.form-control:focus~.floating-label,
+	.form-control:not(.empty)~.floating-label
+		color: $primary
+		top: -1.3rem
+
+
+/*  Input
+	======================================= */
+.form-material
+	.form-control,
+	.form-control.focus,
+	.form-control:focus
+		background-image: -webkit-gradient(linear,left top,left bottom,from(primary),to(primary)),-webkit-gradient(linear,left top,left bottom,from($secondary),to($secondary))
+		background-image: -webkit-linear-gradient(primary,primary),-webkit-linear-gradient($secondary,$secondary)
+		background-image: -o-linear-gradient(primary,primary),-o-linear-gradient($secondary,$secondary)
+		background-image: linear-gradient(primary,primary),linear-gradient($secondary,$secondary)
+
+.form-material.form-group.has-success
+	.form-control.focus,
+	.form-control:focus,
+	.form-control:not(.empty)
+		background-image: -webkit-gradient(linear,left top,left bottom,from(primary),to(primary)),-webkit-gradient(linear,left top,left bottom,from($secondary),to($secondary))
+		background-image: -webkit-linear-gradient(primary,primary),-webkit-linear-gradient($secondary,$secondary)
+		background-image: -o-linear-gradient(primary,primary),-o-linear-gradient($secondary,$secondary)
+		background-image: linear-gradient(primary,primary),linear-gradient($secondary,$secondary)
+
+.form-control
+	color: lighten($font-color, 25%)
+	
+/*  Login
+	======================================= */
+/* Imagen de fondo */
+.page-login-v3
+	&:before
+		background-image: url('../images/bkgd.jpg')
+		background-position: 50%
+		background-repeat: no-repeat
+		background-size: cover
+
+/* Login */
+.login
+	// background-color: red
+	.brand
+		.brand-img
+			height: 100px
+			margin-bottom: 20px
+	
+	form
+		.form-group
+			.help-block.help-block-error
+				color: $error
+				font-size: .9rem
+				text-align: left
+
+/*  Header
+	======================================= */
+.navbar-inverse
+	background-color: $primary
+	.navbar-collapse,
+	.navbar-form
+		border-color: $primary
+
+/*  Footer
+	======================================= */
+.site-footer
+	.site-footer-legal
+		img
+			height: 30px
+	
+	.site-footer-right
+		img
+			height: 30px
+
+.page-copyright
+	.social
+		a
+			img
+				height: 30px
+
+/*  Usuarios
+	======================================= */
+/* Crear */
+.usuarios-create
+	.user-file
+		cursor: pointer
+		display: block
+		height: 200px
+		margin: 0 auto
+		max-width: 80%
+		width: 200px
+
+/* Actualizar */
+.usuarios-actualizar
+	.user-file
+		cursor: pointer
+		display: block
+		height: 200px
+		margin: 0 auto
+		max-width: 80%
+		width: 200px
+
+// Loader
+.loader-overlay
+	background-color: $primary
+	background-image: url(../images/logo-latingal-boutique.png)
+	background-position: 50%
+	background-repeat: no-repeat
+	background-size: 100px
+
+// Loading
+.animsition-loading
+	background-color: $gray-900
+	border-left: 5px solid $accent
+
+// Modal
+.modal-backdrop
+	background-color: rgba(red,.2)
+	position: absolute
+	z-index: 9906
+
+.modal
+	position: fixed
+	z-index: 9999
+	.modal-dialog
+		.modal-header
+			button.close
+				position: absolute
+				right: 24px
+				top: 16px
+
+
+// Summary
+.summary
+	color: $font-color
+	display: flex
+	font-size: .95rem
+	font-weight: $light
+	justify-content: flex-end
+	margin-bottom: 8px
+	padding: 4px 8px
+	b
+		color: $primary
+		font-weight: $regular
+		margin: 0 8px
+
+// Pagination
+.pagination
+	display: flex
+	justify-content: flex-end
+	li
+		display: flex
+		a,
+		span,
+		.page-link
+			align-items: center
+			background-color: transparent
+			border: 1px solid rgba($primary,.4)
+			display: flex
+			font-weight: $regular
+			justify-content: center
+			margin: 0 2px
+			padding: 4px 2px
+			color: $primary
+			text-decoration: none
+			width: 40px
+			&:hover
+				background-color: rgba($primary,.16)
+				border-color: rgba($primary,.16)
+				color: $primary
+		&.prev,
+		&.next
+			a
+				color: $primary
+		&.disabled
+			span
+				background-color: rgba($white,.16)
+				border-color: rgba($primary,.16)
+				color: rgba($primary,.4)
+		&.active
+			a
+				background-color: $primary
+				border-color: $primary
+				color: $white
+				&:hover
+					background-color: rgba($primary,.25)
+					border-color: rgba($primary,.65)
+					color: $primary
