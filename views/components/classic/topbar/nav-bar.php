@@ -17,9 +17,9 @@ role="navigation">
       <i class="icon wb-more-horizontal" aria-hidden="true"></i>
     </button>
     <a class="navbar-brand navbar-brand-center" href="<?=Url::base()?>">
-      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/logo.png"
+      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?=Url::base()?>/webAssets/images/logo-pepsi.png"
       title="Remark">
-      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/logo.png"
+      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?=Url::base()?>/webAssets/images/logo-pepsi.png"
       title="Remark">
       
     </a>
@@ -55,7 +55,10 @@ role="navigation">
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="<?=Url::base()?>/site/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item" href="<?=Url::base()?>/site/logout" role="menuitem">
+              <i class="icon ion-ios-exit-outline" aria-hidden="true"></i>
+              Cerrar sessión
+            </a>
           </div>
         </li>
       </ul>
