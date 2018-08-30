@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "auth_assignment".
  *
  * @property string $item_name
- * @property int $user_id
+ * @property string $user_id
  * @property int $created_at
  *
  * @property ModUsuariosEntUsuarios $user

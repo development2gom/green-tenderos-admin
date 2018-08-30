@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "mod_usuarios_ent_usuarios".
  *
- * @property int $id_usuario
+ * @property string $id_usuario
  * @property int $id_codigo
  * @property string $txt_auth_item
  * @property string $txt_token
@@ -21,13 +21,15 @@ use Yii;
  * @property string $txt_email
  * @property string $fch_creacion
  * @property string $fch_actualizacion
- * @property int $id_status
+ * @property string $id_status
  *
  * @property AuthAssignment[] $authAssignments
  * @property AuthItem[] $itemNames
+ * @property ModUsuariosEntSesiones[] $modUsuariosEntSesiones
+ * @property ModUsuariosCatStatusUsuarios $status
  * @property AuthItem $txtAuthItem
  */
-class EntUsuarios extends \yii\db\ActiveRecord
+class ModUsuariosEntUsuarios extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -54,7 +56,7 @@ class EntUsuarios extends \yii\db\ActiveRecord
             [['txt_auth_key'], 'string', 'max' => 32],
             [['txt_token'], 'unique'],
             [['txt_password_reset_token'], 'unique'],
-            //[['id_status'], 'exist', 'skipOnError' => true, 'targetClass' => ModUsuariosCatStatusUsuarios::className(), 'targetAttribute' => ['id_status' => 'id_status']],
+            [['id_status'], 'exist', 'skipOnError' => true, 'targetClass' => ModUsuariosCatStatusUsuarios::className(), 'targetAttribute' => ['id_status' => 'id_status']],
             [['txt_auth_item'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['txt_auth_item' => 'name']],
         ];
     }
@@ -76,10 +78,10 @@ class EntUsuarios extends \yii\db\ActiveRecord
             'txt_auth_key' => 'Txt Auth Key',
             'txt_password_hash' => 'Txt Password Hash',
             'txt_password_reset_token' => 'Txt Password Reset Token',
-            'txt_email' => 'Email',
+            'txt_email' => 'Txt Email',
             'fch_creacion' => 'Fch Creacion',
             'fch_actualizacion' => 'Fch Actualizacion',
-            'id_status' => 'Status',
+            'id_status' => 'Id Status',
         ];
     }
 
@@ -97,6 +99,14 @@ class EntUsuarios extends \yii\db\ActiveRecord
     public function getItemNames()
     {
         return $this->hasMany(AuthItem::className(), ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id_usuario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModUsuariosEntSesiones()
+    {
+        return $this->hasMany(ModUsuariosEntSesiones::className(), ['id_usuario' => 'id_usuario']);
     }
 
     /**
