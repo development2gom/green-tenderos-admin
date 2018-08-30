@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntImagenes */
 
-$this->title = 'Create Ent Imagenes';
+$this->title = 'Subir imagen';
 $this->params['breadcrumbs'][] = ['label' => 'Ent Imagenes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
