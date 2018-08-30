@@ -11,19 +11,23 @@ use yii\widgets\ActiveForm;
 <div class="ent-imagenes-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'id_concurso')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'txt_url')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'b_habilitado')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+<div class="row">
+    <div class="col-6">
+        <?= $form->field($model, 'id_concurso')->textInput(['maxlength' => true]) ?>
     </div>
+    <div class="col-6">
+        <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-6">
+        <?= $form->field($model, 'fileUpload')->fileInput(['accept'=>'image/*']) ?>
+    </div>
+   
+        
 
+        <div class="col-12">
+            <?= Html::submitButton('Guaradar', ['class' => 'btn btn-success']) ?>
+        </div>
+</div>
     <?php ActiveForm::end(); ?>
 
 </div>

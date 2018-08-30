@@ -17,6 +17,7 @@ use Yii;
  */
 class EntImagenes extends \yii\db\ActiveRecord
 {
+    public $fileUpload;
     /**
      * @inheritdoc
      */
@@ -32,8 +33,10 @@ class EntImagenes extends \yii\db\ActiveRecord
     {
         return [
             [['id_concurso', 'b_habilitado'], 'integer'],
-            [['txt_nombre', 'txt_url'], 'required'],
-            [['txt_nombre', 'txt_url'], 'string', 'max' => 50],
+            [['txt_nombre'], 'required'],
+            [['txt_nombre'], 'string', 'max' => 50],
+            [['txt_url'], 'string', 'max' => 100],
+            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg,jpeg'],
             [['id_concurso'], 'exist', 'skipOnError' => true, 'targetClass' => CatConcurso::className(), 'targetAttribute' => ['id_concurso' => 'id_concurso']],
         ];
     }
@@ -58,5 +61,17 @@ class EntImagenes extends \yii\db\ActiveRecord
     public function getConcurso()
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
+    }
+    public function subirFoto()
+    {
+       
+        if($this->validate())
+        {
+            $this->fileUpload->saveAs('imagenes-ganadores/'.$this->fileUpload->basename.'.'.$this->fileUpload->extension);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

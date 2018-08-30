@@ -8,6 +8,7 @@ use app\models\EntImagenesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ImagenesController implements the CRUD actions for EntImagenes model.
@@ -65,9 +66,15 @@ class ImagenesController extends Controller
     public function actionCreate()
     {
         $model = new EntImagenes();
+        $model->b_habilitado=1;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->fileUpload= UploadedFile::getInstance($model,'fileUpload');
+            if($model->subirFoto())
+            {
+                return $this->redirect(['view', 'id' => $model->id_imagen]);   
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_imagen]);
+            }
+            
         }
 
         return $this->render('create', [
