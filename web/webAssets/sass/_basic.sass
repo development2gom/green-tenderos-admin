@@ -1,7 +1,7 @@
 /*!
-	-----------------------------------------------------------------------------
-	2.0 - Basicos
-	-----------------------------------------------------------------------------
+	---------------------------------------
+	Basicos
+	---------------------------------------
 	*/
 
 body
@@ -12,9 +12,8 @@ body
 		size: 16px
 		weight: $light
 	color: $font-color
-
 a
-	color: $link
+	color: $accent
 	font:
 		family: $f-base
 		size: 16px
@@ -23,11 +22,11 @@ a
 	&:active,
 	&:focus,
 	&:hover
-		color: darken($link , 10% )
+		color: darken($accent , 15% )
 		text-decoration: none
 
 /*  Btn
-	================================================ */
+	============================== */
 .ladda-button
 	background-color: transparent
 	border-radius: 0
@@ -241,7 +240,7 @@ a
 		box-shadow: none
 
 /*  Label
-	======================================= */
+	============================== */
 /* Normal */
 .page-login-v3
 	form
@@ -282,7 +281,7 @@ a
 
 
 /*  Input
-	======================================= */
+	============================== */
 .form-material
 	.form-control,
 	.form-control.focus,
@@ -305,7 +304,7 @@ a
 	color: lighten($font-color, 25%)
 	
 /*  Login
-	======================================= */
+	============================== */
 /* Imagen de fondo */
 .page-login-v3
 	&:before
@@ -330,23 +329,35 @@ a
 				text-align: left
 
 /*  Header
-	======================================= */
+	============================== */
 .navbar-inverse
-	background-color: $primary
+	background-color: $accent
 	.navbar-collapse,
 	.navbar-form
-		border-color: $primary
+		border-color: $accent
+
+.navbar-right
+	.dropdown-menu
+		.dropdown-item
+			align-items: center
+			display: flex
+			justify-content: flex-start
+			.icon:first-child
+				// color: red
+				@extend .fs-26
 
 /*  Footer
-	======================================= */
+	============================== */
 .site-footer
+	align-items: center
+	background-color: $secondary
+	display: flex
+	justify-content: center
 	.site-footer-legal
-		img
-			height: 30px
-	
-	.site-footer-right
-		img
-			height: 30px
+		a
+			display: flex
+			img
+				height: 30px
 
 .page-copyright
 	.social
@@ -355,7 +366,7 @@ a
 				height: 30px
 
 /*  Usuarios
-	======================================= */
+	============================== */
 /* Crear */
 .usuarios-create
 	.user-file
@@ -376,7 +387,8 @@ a
 		max-width: 80%
 		width: 200px
 
-// Loader
+/*  Loader
+	============================== */
 .loader-overlay
 	background-color: $primary
 	background-image: url(../images/logo-latingal-boutique.png)
@@ -405,8 +417,8 @@ a
 				right: 24px
 				top: 16px
 
-
-// Summary
+/*  Summary
+	============================== */
 .summary
 	color: $font-color
 	display: flex
@@ -420,7 +432,8 @@ a
 		font-weight: $regular
 		margin: 0 8px
 
-// Pagination
+/*  Pagination
+	============================== */
 .pagination
 	display: flex
 	justify-content: flex-end
