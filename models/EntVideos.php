@@ -17,6 +17,7 @@ use Yii;
  */
 class EntVideos extends \yii\db\ActiveRecord
 {
+    public $fileUpload;
     /**
      * @inheritdoc
      */
@@ -32,8 +33,10 @@ class EntVideos extends \yii\db\ActiveRecord
     {
         return [
             [['id_concurso', 'b_habilitado'], 'integer'],
-            [['txt_nombre', 'txt_url'], 'required'],
+            [['txt_nombre'], 'required'],
             [['txt_nombre', 'txt_url'], 'string', 'max' => 50],
+            [['txt_url'], 'string', 'max' => 100],
+            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'extensions' => 'mp4,WebM,Ogg'],
             [['id_concurso'], 'exist', 'skipOnError' => true, 'targetClass' => CatConcurso::className(), 'targetAttribute' => ['id_concurso' => 'id_concurso']],
         ];
     }
@@ -44,11 +47,11 @@ class EntVideos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_video' => 'Id Video',
-            'id_concurso' => 'Id Concurso',
-            'txt_nombre' => 'Txt Nombre',
-            'txt_url' => 'Txt Url',
-            'b_habilitado' => 'B Habilitado',
+            'id_video' => 'Video',
+            'id_concurso' => 'Concurso',
+            'txt_nombre' => 'Nombre',
+            'txt_url' => 'Url',
+            'b_habilitado' => 'Habilitado',
         ];
     }
 
@@ -58,5 +61,18 @@ class EntVideos extends \yii\db\ActiveRecord
     public function getConcurso()
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
+    }
+    public function subirVideo()
+    {
+        if($this->validate())
+        {
+            $path=Yii::$app->params['path_videos'].$this->txt_nombre.'.'.$this->fileUpload->extension;
+            $this->fileUpload->saveAs($path);
+           $this->txt_url=$path;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

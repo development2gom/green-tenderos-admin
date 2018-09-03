@@ -8,6 +8,8 @@ use app\models\EntVideosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
 
 /**
  * VideosController implements the CRUD actions for EntVideos model.
@@ -66,8 +68,18 @@ class VideosController extends Controller
     {
         $model = new EntVideos();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_video]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
+            if ($model->subirVideo()) {
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id_video]);
+                } else {
+                    print_r($model->errors);
+                    exit;
+                }
+
+            }
         }
 
         return $this->render('create', [

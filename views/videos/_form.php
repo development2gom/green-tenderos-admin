@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\CatConcurso;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntVideos */
@@ -11,19 +13,22 @@ use yii\widgets\ActiveForm;
 <div class="ent-videos-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'id_concurso')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'txt_url')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'b_habilitado')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
+        <div class="row">
+        <div class="col-6">
+        <?= $form->field($model, 'id_concurso')->dropDownList(ArrayHelper::map(CatConcurso::find()->where(['b_habilitado'=>1])->OrderBy('txt_nombre ASC')->all(), 'id_concurso', 'txt_nombre'), ['prompt'=>'Seleccionar concurso']) ?>   
+        </div>
+        <div class="col-6">
+            <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-6">
+            <?= $form->field($model, 'fileUpload')->fileInput(['accept' => 'image/*']) ?>
+        </div>
+        
+        
+        <div class="col-12">
+            <?= Html::submitButton('GUARDAR', ['class' => 'btn btn-success']) ?>
+        </div>
+        </div>
     <?php ActiveForm::end(); ?>
 
 </div>
