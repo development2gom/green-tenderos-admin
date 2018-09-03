@@ -207,7 +207,6 @@ class SiteController extends Controller
                                 ];
                             }
 
-
                             $idNivel;
                             $siguienteNivel;
                             $niveles = CatNiveles::find()->where(['b_habilitado'=>1])->all();
