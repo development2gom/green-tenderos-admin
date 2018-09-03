@@ -26,13 +26,13 @@ use yii\helpers\Url;
                         </a>
                       </li>
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-empleados">
-                          <span class="site-menu-title">Individuales</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/imagenes/index">
+                          <span class="site-menu-title">Cargar fotos</span>
                         </a>
                       </li>
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-competencias">
-                          <span class="site-menu-title">Empresa</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/videos/index">
+                          <span class="site-menu-title">Cargar video</span>
                         </a>
                       </li>
                       <li class="site-menu-item">

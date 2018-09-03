@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Codeception\Lib\Connector\Yii1;
 
 /**
  * This is the model class for table "ent_imagenes".
@@ -47,11 +48,11 @@ class EntImagenes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_imagen' => 'Id Imagen',
-            'id_concurso' => 'Id Concurso',
-            'txt_nombre' => 'Txt Nombre',
-            'txt_url' => 'Txt Url',
-            'b_habilitado' => 'B Habilitado',
+            'id_imagen' => 'Imagen',
+            'id_concurso' => 'Concurso',
+            'txt_nombre' => 'Nombre',
+            'txt_url' => 'Url',
+            'b_habilitado' => 'Habilitado',
         ];
     }
 
@@ -64,10 +65,11 @@ class EntImagenes extends \yii\db\ActiveRecord
     }
     public function subirFoto()
     {
-       
+          
         if($this->validate())
         {
-            $this->fileUpload->saveAs('imagenes-ganadores/'.$this->fileUpload->basename.'.'.$this->fileUpload->extension);
+            $this->fileUpload->saveAs(Yii::$app->params['path_imagenes'].$this->txt_nombre.'.'.$this->fileUpload->extension);
+           $this->txt_url=$this->txt_nombre.'.'.$this->fileUpload->extension;
             return true;
         }
         else{

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EntVideosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ent Videos';
+$this->title = 'Videos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ent-videos-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ent Videos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nuevo Video', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_video',
-            'id_concurso',
+            // 'id_video',
+            // 'id_concurso',
             'txt_nombre',
-            'txt_url:url',
-            'b_habilitado',
+            // 'txt_url:url',
+            // 'b_habilitado',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

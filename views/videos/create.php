@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntVideos */
 
-$this->title = 'Create Ent Videos';
+$this->title = 'Subir Videos';
 $this->params['breadcrumbs'][] = ['label' => 'Ent Videos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
