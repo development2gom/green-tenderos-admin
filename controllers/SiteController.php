@@ -10,9 +10,18 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\components\AccessControlExtend;
+use yii\web\UploadedFile;
+use app\models\CatBodegas;
+use app\models\CatTiendas;
+use app\models\WrkHistorial;
+use app\models\CatNiveles;
+use app\models\WrkPuntuajeActual;
+use app\models\Constantes;
 
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritdoc
      */
@@ -140,7 +149,7 @@ class SiteController extends Controller
     }
 
     public function actionImportarData(){
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $errores = [];
         
         if (Yii::$app->request->isPost) {
