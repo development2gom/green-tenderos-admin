@@ -150,10 +150,10 @@ class SiteController extends Controller
 
     public function actionImportarData(){  
 
-        if(Yii::$app->request->isPost){print_r($_POST);exit;
+        if(Yii::$app->request->isPost){
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-            $file = UploadedFile::getInstanceByName('file-import');print_r($file);exit;
+            $file = UploadedFile::getInstanceByName('file-import');
             
             if($file){
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();

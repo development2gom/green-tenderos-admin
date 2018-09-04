@@ -10,7 +10,9 @@ $this->registerJsFile(
 <h2>Cargar archivo excel</h2>
 <div class="row">
     <div class="col-md-4">
-        <input class="js-input-file" name="file-import" type="file" data-url="<?= Url::base() ?>">
+        <form action="#">
+            <input class="js-input-file" name="file-import" type="file" data-url="<?= Url::base() ?>">
+        </form>
     </div>
     <div class="col-md-8">
 

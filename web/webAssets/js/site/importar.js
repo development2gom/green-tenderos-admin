@@ -1,22 +1,22 @@
 $(document).ready(function(){
     $(".js-input-file").on('change', function(){
         var url = $(this).data("url");
-        //var file_data = $(this).prop('files')[0];
-        var file_data = $(this).val();
-        var form_data = new FormData();
-        form_data.append('file-import', file_data);
+        var formulario = $(this).parents("form");
+        var formData = new FormData(formulario.get(0));
         
-        alert(file_data); 
+        // alert(file_data); 
         // console.log(url);
 
         $.ajax({
             url: url + '/site/importar-data',
             type: 'POST',
-            data: form_data,
+            data: formData,
             contentType: false,
             processData: false,
             success: function(resp){
-                console.log(resp);
+                if(resp.status == "success"){
+                    alert("Success");
+                }
             },
             error: function(){
                 alert('error');
