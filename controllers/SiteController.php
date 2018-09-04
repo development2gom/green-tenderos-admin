@@ -25,29 +25,29 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    // public function behaviors()
-    // {
-        // return [
-        //     'access' => [
-        //         'class' => AccessControlExtend::className(),
-        //         'only' => ['logout', 'about'],
-        //         'rules' => [
-        //             [
-        //                 'actions' => ['logout'],
-        //                 'allow' => true,
-        //                 'roles' => ['admin'],
-        //             ],
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => ['index', 'logout', 'about', 'importar-data'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'logout', 'importar-data'],
+                        'allow' => true,
+                        'roles' => ['super-admin'],
+                    ],
                    
-        //         ],
-        //     ],
-            // 'verbs' => [
-            //     'class' => VerbFilter::className(),
-            //     'actions' => [
-            //         'logout' => ['post'],
-            //     ],
-            // ],
-        //];
-    //}
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -148,26 +148,25 @@ class SiteController extends Controller
         return $fulllist;
     }
 
-    public function actionImportarData(){
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $errores = [];
-        
-        if (Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstanceByName('file-import');//print_r($file->tempName);exit;
+    public function actionImportarData(){  
+
+        if(Yii::$app->request->isPost){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            $file = UploadedFile::getInstanceByName('file-import');
             
             if($file){
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
                 $spreadsheet = $reader->load($file->tempName);
                 $sheetData = $spreadsheet->getActiveSheet()->toArray();
-                //print_r($sheetData);
+                
+                $transaction = Yii::$app->db->beginTransaction();
+
                 foreach($sheetData as  $key => $data){
                     if($key == 0)
                         continue;
                     
-                    //print_r($data);exit;
-
-                    $transaction = Yii::$app->db->beginTransaction();
                     try{
                         $bodega = CatBodegas::find()->where(['id_bodega'=>$data[2]])->one();
                         if($bodega){
@@ -225,14 +224,14 @@ class SiteController extends Controller
                                 $puntajeActual->txt_clave_tienda = $tienda->txt_clave_tienda;
                                 $puntajeActual->id_nivel = $idNivel;
                                 $puntajeActual->id_concurso = Constantes::CONCURSO;
-                                $puntajeActual->num_puntuaje_actual = $historial->num_saldo_mes;
+                                $puntajeActual->num_puntuaje_actual = $historial->num_saldo_acumulado;
                                 $puntajeActual->num_saldo_anterior = $historial->num_saldo_anterior;
                                 $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
                                 $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
                                 $puntajeActual->num_puntos_sig_experiencia = $siguienteNivel;
                             }else{
                                 $puntajeActual->id_nivel = $idNivel;
-                                $puntajeActual->num_puntuaje_actual = $historial->num_saldo_mes;
+                                $puntajeActual->num_puntuaje_actual = $historial->num_saldo_acumulado;
                                 $puntajeActual->num_saldo_anterior = $historial->num_saldo_anterior;
                                 $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
                                 $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
@@ -259,11 +258,6 @@ class SiteController extends Controller
                         // foreach($data as $d){
                         //     echo $d."<br/>";
                         // }
-                        $transaction->commit();
-
-                        return [
-                            'status' => 'success'
-                        ];
                     }catch (\Exception $e) {
                         $transaction->rollBack();
                         throw $e;
@@ -273,11 +267,18 @@ class SiteController extends Controller
                         ];
                     }
                 }
+                $transaction->commit();
+
+                return [
+                    'status' => 'success'
+                ];
             }
+
+            return [
+                'status' => 'error'
+            ];
         }
 
-        return [
-            'status' => 'error'
-        ];
+        return $this->render('importar_datos');
     }
 }

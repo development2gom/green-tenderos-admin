@@ -21,8 +21,8 @@ use yii\helpers\Url;
                   <div>
                     <ul class="site-menu-sub site-menu-normal-list">
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>">
-                          <span class="site-menu-title">Niveles</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/site/importar-data">
+                          <span class="site-menu-title">Cargar data</span>
                         </a>
                       </li>
                       <li class="site-menu-item">
@@ -33,11 +33,6 @@ use yii\helpers\Url;
                       <li class="site-menu-item">
                         <a class="animsition-link" href="<?=Url::base()?>/videos/index">
                           <span class="site-menu-title">Cargar video</span>
-                        </a>
-                      </li>
-                      <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/admin/resultados-por-area">
-                          <span class="site-menu-title">Área</span>
                         </a>
                       </li>
                     </ul>
