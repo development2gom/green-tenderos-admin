@@ -160,14 +160,13 @@ class SiteController extends Controller
 
                 $spreadsheet = $reader->load($file->tempName);
                 $sheetData = $spreadsheet->getActiveSheet()->toArray();
-                //print_r($sheetData);
+                
+                $transaction = Yii::$app->db->beginTransaction();
+
                 foreach($sheetData as  $key => $data){
                     if($key == 0)
                         continue;
                     
-                    //print_r($data);exit;
-
-                    $transaction = Yii::$app->db->beginTransaction();
                     try{
                         $bodega = CatBodegas::find()->where(['id_bodega'=>$data[2]])->one();
                         if($bodega){
@@ -259,11 +258,6 @@ class SiteController extends Controller
                         // foreach($data as $d){
                         //     echo $d."<br/>";
                         // }
-                        $transaction->commit();
-
-                        return [
-                            'status' => 'success'
-                        ];
                     }catch (\Exception $e) {
                         $transaction->rollBack();
                         throw $e;
@@ -273,6 +267,11 @@ class SiteController extends Controller
                         ];
                     }
                 }
+                $transaction->commit();
+
+                return [
+                    'status' => 'success'
+                ];
             }
 
             return [
