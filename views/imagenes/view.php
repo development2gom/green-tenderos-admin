@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\assets\AppAsset;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntImagenes */
@@ -9,6 +11,11 @@ use yii\widgets\DetailView;
 $this->title = $model->id_imagen;
 $this->params['breadcrumbs'][] = ['label' => 'Ent Imagenes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile(
+    '@web/webAssets/js/imagenes/view.js',
+    ['depends' => [AppAsset::className()]]
+);
 ?>
 <div class="ent-imagenes-view">
 
@@ -24,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <button class="js-publicar-imagen" data-id="<?= $model->id_imagen ?>" data-url="<?= Url::base() ?>">Publicar</button>
 
     <?= DetailView::widget([
         'model' => $model,
