@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
+use app\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntVideos */
@@ -9,6 +11,11 @@ use yii\widgets\DetailView;
 $this->title = $model->id_video;
 $this->params['breadcrumbs'][] = ['label' => 'Ent Videos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile(
+    '@web/webAssets/js/videos/view.js',
+    ['depends' => [AppAsset::className()]]
+);
 ?>
 <div class="ent-videos-view">
 
@@ -24,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <button class="js-publicar-video" data-id="<?= $model->id_video ?>" data-url="<?= Url::base() ?>">Publicar</button>
+
 
     <?= DetailView::widget([
         'model' => $model,

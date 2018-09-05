@@ -32,11 +32,12 @@ class EntVideos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_concurso', 'b_habilitado'], 'integer'],
+            [['fileUpload'], 'file', 'skipOnEmpty' => true, 'on' => 'update'],
+            [['id_concurso', 'b_habilitado', 'b_publicado'], 'integer'],
             [['txt_nombre'], 'required'],
             [['txt_nombre', 'txt_url'], 'string', 'max' => 50],
             [['txt_url'], 'string', 'max' => 100],
-            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'extensions' => 'mp4,WebM,Ogg'],
+            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'on' => 'create', 'extensions' => 'mp4,WebM,Ogg'],
             [['id_concurso'], 'exist', 'skipOnError' => true, 'targetClass' => CatConcurso::className(), 'targetAttribute' => ['id_concurso' => 'id_concurso']],
         ];
     }

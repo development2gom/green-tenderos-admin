@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\EntVideos;
 
 /**
  * ImagenesController implements the CRUD actions for EntImagenes model.
@@ -66,6 +67,8 @@ class ImagenesController extends Controller
     public function actionCreate()
     {
         $model = new EntImagenes();
+        $imagen->scenario = 'create';
+
         $model->b_habilitado = 1;
         if ($model->load(Yii::$app->request->post())) {
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
@@ -77,9 +80,7 @@ class ImagenesController extends Controller
                     print_r($model->errors);
                     exit;
                 }
-
             }
-
         }
 
         return $this->render('create', [
@@ -97,6 +98,7 @@ class ImagenesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_imagen]);
@@ -135,5 +137,22 @@ class ImagenesController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionPublicarImagen($id){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $imagen = EntImagenes::find()->where(['id_imagen'=>$id])->one();
+        $imagen->scenario = 'update';
+        
+        $imagen->b_publicado = 1;
+        if($imagen->save()){
+
+            return ['status'=>'success'];
+        }else{
+            print_r($imagen->errors);
+        }
+
+        return ['status'=>'error'];
     }
 }

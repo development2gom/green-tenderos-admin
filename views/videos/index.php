@@ -27,7 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id_video',
             // 'id_concurso',
-            'txt_nombre',
+            [
+                'attribute' => 'txt_nombre',
+                'format' => 'raw',
+                'value' => function ($model){
+
+                    return Html::a($model->txt_nombre, 'view/'.$model->id_video);
+                },
+            ],
             // 'txt_url:url',
             // 'b_habilitado',
 

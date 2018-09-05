@@ -67,6 +67,7 @@ class VideosController extends Controller
     public function actionCreate()
     {
         $model = new EntVideos();
+        $model->scenario = 'create';
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -97,6 +98,7 @@ class VideosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_video]);
@@ -135,5 +137,22 @@ class VideosController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionPublicarVideo($id){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $video = EntVideos::find()->where(['id_video'=>$id])->one();
+        $video->scenario = 'update';
+
+        $video->b_publicado = 1;
+        if($video->save()){
+
+            return ['status'=>'success'];
+        }else{
+            print_r($video->errors);
+        }
+
+        return ['status'=>'error'];
     }
 }

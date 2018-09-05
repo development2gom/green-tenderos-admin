@@ -53,9 +53,9 @@ $this->params['classBody'] = "page-login-v3 layout-full login-page";
 			<?= Html::submitButton('<span class="ladda-label">Ingresar</span>', ["data-style" => "zoom-in", 'class' => 'btn btn-secondary btn-block btn-lg mt-20 ladda-button', 'name' => 'login-button']); ?>
 		</div>
 
-		<div class="form-group necesito-cuenta">
+		<!--<div class="form-group necesito-cuenta">
 			<a class="login-link" href="<?= Url::base() ?>/sign-up">Necesito una cuenta</a>
-		</div>
+		</div>-->
 
 		<?php ActiveForm::end(); ?>
 
