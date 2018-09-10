@@ -4,8 +4,7 @@ $(document).ready(function(){
         var formulario = $(this).parents("form");
         var formData = new FormData(formulario.get(0));
         
-        // alert(file_data); 
-        // console.log(url);
+        var input = $(this);
 
         $.ajax({
             url: url + '/site/importar-data',
@@ -15,11 +14,15 @@ $(document).ready(function(){
             processData: false,
             success: function(resp){
                 if(resp.status == "success"){
-                    alert("Success");
+                    //swal("Correcto", "Los datos se guardaron correctamente", "success");
+                }else{
+                    //swal("Espera", "Hubo un error, intentelo de nuevo", "warning");
                 }
+                input.val('');
             },
             error: function(){
-                alert('error');
+                //swal("Espera", "Hubo un error, intentelo de nuevo", "warning");                
+                input.val('');
             }
         });
     });
