@@ -46,7 +46,7 @@ $this->params['classBody'] = "page-login-v3 layout-full login-page";
 		<?= $form->field($model, 'password')->passwordInput(["class" => "form-control"]) ?>
 
 		<div class="form-group olvide-contrasena">
-			<a class="login-link" href="<?= Url::base() ?>/peticion-pass">¿Olvidaste tu contraseña?</a>
+			
 		</div>
 
 		<div class="form-group form-group-actions">
@@ -61,8 +61,7 @@ $this->params['classBody'] = "page-login-v3 layout-full login-page";
 
 
 		<div class="ayuda-soporte">
-			<span>¿Necesitas ayuda? escribe a:</span>
-			<a class="no-redirect login-link" href="mailto:soporte@2gom.com.mx?Subject=Solicitud%de%Soporte">soporte@2gom.com.mx</a>
+			
 		</div>
 	</div>
 </div>
