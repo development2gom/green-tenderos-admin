@@ -67,19 +67,16 @@ class ImagenesController extends Controller
     public function actionCreate()
     {
         $model = new EntImagenes();
-        $imagen->scenario = 'create';
+        $model->scenario = 'create';
 
         $model->b_habilitado = 1;
         if ($model->load(Yii::$app->request->post())) {
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
-            if ($model->subirFoto()) {
-                if ($model->save(false)) {
+            if ($model->guardarRegistro()) {
+               
                     return $this->redirect(['view', 'id' => $model->id_imagen]);
 
-                } else {
-                    print_r($model->errors);
-                    exit;
-                }
+                
             }
         }
 

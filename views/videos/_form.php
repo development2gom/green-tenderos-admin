@@ -21,7 +21,7 @@ use app\models\CatConcurso;
             <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-6">
-            <?= $form->field($model, 'fileUpload')->fileInput(['accept' => 'image/*']) ?>
+            <?= $form->field($model, 'fileUpload')->fileInput() ?>
         </div>
         
         

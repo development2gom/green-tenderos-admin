@@ -64,17 +64,33 @@ class EntImagenes extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
     }
+    public function guardarRegistro()
+    {
+        $this->getPath();
+        if($this->save())
+        {
+            if($this->subirFoto())
+            {
+                return true;
+            }
+        }
+    }
     public function subirFoto()
     {
-          
-        if($this->validate())
-        {
-            $this->fileUpload->saveAs(Yii::$app->params['path_imagenes'].$this->txt_nombre.'.'.$this->fileUpload->extension);
-           $this->txt_url=$this->txt_nombre.'.'.$this->fileUpload->extension;
-            return true;
-        }
-        else{
+            if($this->fileUpload&&$this->fileUpload->saveAs($this->txt_url))
+            {
+                return true;
+            }      
+                 
             return false;
+    
+    }
+    public function getPath()
+    {
+        if($this->fileUpload)
+        {
+            $path = Yii::$app->params['path_imagenes'].$this->txt_nombre.'.'.$this->fileUpload->extension;
+            $this->txt_url=$path;
         }
     }
 }
