@@ -72,15 +72,12 @@ class VideosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
-            if ($model->subirVideo()) {
-                if ($model->save(false)) {
+           
+                if ($model->guardarRegistro()) {
                     return $this->redirect(['view', 'id' => $model->id_video]);
-                } else {
-                    print_r($model->errors);
-                    exit;
-                }
+                } 
 
-            }
+            
         }
 
         return $this->render('create', [
