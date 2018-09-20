@@ -168,11 +168,13 @@ class SiteController extends Controller
                         continue;
                     
                     try{
-                            $tienda = CatTiendas::find()->where(['txt_clave_tienda'=>$data[0], 'txt_clave_bodega'=>$data[2]])->one();
+                        $bodega = CatBodegas::find()->where(['txt_clave_bodega'=>$data[2]])->one();
+                        if($bodega){
+                            $tienda = CatTiendas::find()->where(['txt_clave_tienda'=>$data[0], 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
                             if(!$tienda){
                                 $tienda = new CatTiendas();
                                 $tienda->txt_clave_tienda = $data[0];
-                                $tienda->txt_clave_bodega = $data[2];
+                                $tienda->txt_clave_bodega = $bodega->txt_clave_bodega;
                                 $tienda->txt_nombre = $data[1];
 
                                 if(!$tienda->save()){
@@ -187,7 +189,7 @@ class SiteController extends Controller
 
                             $historial = new WrkHistorial();
                             $historial->id_concurso = 1;
-                            $historial->txt_clave_bodega = $data[2];
+                            $historial->txt_clave_bodega = $bodega->txt_clave_bodega;
                             $historial->txt_clave_tienda = $tienda->txt_clave_tienda;
                             $fecha = date("Y-m-d", strtotime($data[7]));
                             $historial->fch_compra = $fecha;
@@ -215,10 +217,10 @@ class SiteController extends Controller
                                 }
                             }
 
-                            $puntajeActual = WrkPuntuajeActual::find()->where(['txt_clave_tienda'=>$tienda->txt_clave_tienda, 'txt_clave_bodega'=>$data[2]])->one();
+                            $puntajeActual = WrkPuntuajeActual::find()->where(['txt_clave_tienda'=>$tienda->txt_clave_tienda, 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
                             if(!$puntajeActual){
                                 $puntajeActual = new WrkPuntuajeActual();
-                                $puntajeActual->txt_clave_bodega = $data[2];
+                                $puntajeActual->txt_clave_bodega = $bodega->txt_clave_bodega;
                                 $puntajeActual->txt_clave_tienda = $tienda->txt_clave_tienda;
                                 $puntajeActual->id_nivel = $idNivel;
                                 $puntajeActual->id_concurso = Constantes::CONCURSO;
@@ -245,10 +247,24 @@ class SiteController extends Controller
                                 ];
                             }
 
+                        }else{
+                            $nuevaBodega = new CatBodegas();
+                            $nuevaBodega->txt_clave_bodega = $data[2];
+                            $nuevaBodega->txt_nombre = $data[2];
+
+                            if(!$nuevaBodega->save()){
+                                $transaction->rollBack();
+                                echo "No se encontro la bodega";
+                                
+                                return [
+                                    'status' => 'error'
+                                ];
+                            }
+                        }
                         // foreach($data as $d){
                         //     echo $d."<br/>";
                         // }
-                    }catch (\Exception $e) {
+                    }catch(\Exception $e){
                         $transaction->rollBack();
                         throw $e;
 
