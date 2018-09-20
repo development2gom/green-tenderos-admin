@@ -4,5 +4,109 @@
 	---------------------------------------
 	*/
 
-/*  Btn
-	============================== */
+.page
+	min-height: calc(100% - 80px)
+	padding-bottom: 12px
+	padding-top: 32px
+	.page-content
+		// background-color: rgba(red,.2)
+		display: flex
+		justify-content: center
+
+		.page-title
+			margin-bottom: 32px
+			display: flex
+			justify-content: center
+			align-items: center
+			flex-direction: column
+			h2
+				@extend .fs-32
+				@extend .fw-regular
+				margin: 0 0 4px
+				text-align: center
+			hr
+				background-color: $secondary
+				display: inline-block
+				height: 3px
+				margin: 0 auto
+				width: 5vw
+		
+		.page-datos
+			background-color: $white
+			border-radius: 4px
+			box-shadow: 0 1px 3px rgba($black, 0.12), 0 1px 2px rgba($black, 0.24)
+			display: flex
+			flex-direction: column
+			margin: 0 auto
+			padding: 32px
+			.page-datos-cont
+				// background-color: rgba(green,.3)
+				margin: 0 auto
+				max-width: 90%
+				width: 480px
+
+				.page-datos-cont-actions
+					align-items: center
+					display: flex
+					justify-content: flex-end
+					margin-bottom: 12px
+					width: 100%
+					.btn
+						align-items: center
+						border-radius: 50%
+						display: flex
+						@extend .fs-28
+						height: 40px
+						justify-content: center
+						margin-right: 8px
+						padding: 0
+						width: 40px
+						i.icon
+							margin: 0
+						&:last-child
+							margin-right: 0
+						
+						&.btn-danger
+							border-color: $accent
+						&.btn-success
+							border-color: $success
+
+				.dropify-wrapper
+					border: 2px solid $secondary
+					&:hover
+						background-image: linear-gradient(-45deg, #e8f3ff 25%, transparent 25%, transparent 50%, #e8f3ff 50%, #e8f3ff 75%, transparent 75%, transparent)
+					.dropify-message
+						span.file-icon
+							color: $secondary
+							font-size: 5rem
+						p
+							color: #999
+							@extend .fs-18
+					.dropify-errors-container
+						// background-color: rgba(green,.4)
+						bottom: 0
+						left: 0
+						position: absolute
+						right: 0
+						ul
+							list-style: none
+							margin-bottom: 0
+							li
+								color: #666
+								@extend .fs-16
+								@extend .fw-regular
+					&.has-error
+						// background-color: rgba($accent,.6)
+						.dropify-message
+							opacity: .7
+							// p
+							// 	color: rgba($white,.7)
+							// p.dropify-error
+							// 	color: $white
+						// .dropify-errors-container
+						// 	background-color: rgba(purple,.4)
+
+				.col-actions
+					display: flex
+					justify-content: center
+					margin-top: 32px
