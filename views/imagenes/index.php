@@ -71,15 +71,21 @@ $this->registerJsFile(
 
     <div class="page-gallery-head-filter">
       <ul class="nav nav-tabs nav-tabs-line" role="tablist" id="exampleFilter">
+
         <li class="nav-item" role="presentation">
           <a class="active nav-link" href="#" aria-controls="exampleList" aria-expanded="true" role="tab" data-filter="*">All</a>
         </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="2017">2017</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="2018">2018</a>
-        </li>
+      
+        <?php
+        foreach($concursos as $concurso){
+        ?>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="<?= $concurso->id_concurso ?>"><?= $concurso->txt_nombre ?></a>
+            </li>
+        <?php
+        }
+        ?>
+      
       </ul>
     </div>
   </div>
@@ -88,10 +94,12 @@ $this->registerJsFile(
 
     <div class="row" data-plugin="filterable" data-filters="#exampleFilter">
       <?php
-          foreach ($imagenes as $imagen){
+      foreach ($concursos as $concurso){
+        foreach ($imagenes as $imagen){
         ?>
         
-          <div class="col-md-4" data-type="2017">
+          <div class="col-md-4" data-type="<?= $concurso->id_concurso ?>">
+            <?php if($concurso->id_concurso == $imagen->id_concurso){ ?>
               <div class="card card-shadow">
                   <figure class="card-img-top overlay-hover overlay">
                       <img class="overlay-figure overlay-scale" src="<?= Url::base() ?>/imagenes-ganadores/<?= $imagen->txt_url ?>"
@@ -104,10 +112,12 @@ $this->registerJsFile(
                       </figcaption>
                   </figure>
               </div>
+            <?php } ?>
           </div>
       
       <?php
         }
+      }
       ?>
     </div>
   
