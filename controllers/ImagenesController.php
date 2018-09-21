@@ -40,9 +40,12 @@ class ImagenesController extends Controller
         $searchModel = new EntImagenesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $imagenes = EntImagenes::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'imagenes' => $imagenes
         ]);
     }
 

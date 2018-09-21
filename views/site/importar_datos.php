@@ -72,7 +72,7 @@ $this->registerJsFile(
 
     <div class="page-datos-cont">
 
-        <div class="page-datos-cont-actions">
+        <!-- <div class="page-datos-cont-actions">
 
             <button type="button" class="btn btn-success btn-outline">
                 <i class="icon ion-ios-color-wand" aria-hidden="true"></i>
@@ -80,7 +80,7 @@ $this->registerJsFile(
             <button type="button" class="btn btn-danger btn-outline">
                 <i class="icon ion-ios-trash" aria-hidden="true"></i>
             </button>
-        </div>
+        </div> -->
 
         <form action="#">
             <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="xlsx" data-default-file="" />

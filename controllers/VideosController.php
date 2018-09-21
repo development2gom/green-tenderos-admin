@@ -40,9 +40,12 @@ class VideosController extends Controller
         $searchModel = new EntVideosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $videos = EntVideos::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'videos' => $videos
         ]);
     }
 
