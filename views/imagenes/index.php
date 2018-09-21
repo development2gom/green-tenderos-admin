@@ -107,7 +107,7 @@ $this->registerJsFile(
                       <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
                         <a class="icon wb-search" href="<?= Url::base() ?>/imagenes-ganadores/<?= $imagen->txt_url ?>"></a>
                         <a class="icon wb-trash" href="#"></a>
-                        <a class="icon wb-pencil" href="#"></a>
+                        <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
                         <p class="card-block"><?= $imagen->txt_nombre ?></p>
                       </figcaption>
                   </figure>

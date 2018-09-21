@@ -111,7 +111,7 @@ $this->registerJsFile(
                             <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
                                 <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>"></a>
                                 <a class="icon wb-trash" href="#"></a>
-                                <a class="icon wb-pencil" href="#"></a>
+                                <a class="icon wb-pencil" href="<?= Url::base() . "/videos/update/" . $video->id_video ?>"></a>
                                 <p class="card-block"><?= $video->txt_nombre ?></p>
                             </figcaption>
                         </figure>
