@@ -106,7 +106,7 @@ $this->registerJsFile(
               </div>
           </div>
       
-      <?
+      <?php
         }
       ?>
     </div>

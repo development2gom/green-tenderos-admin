@@ -69,15 +69,21 @@ $this->registerJsFile(
 
     <div class="page-gallery-head-filter">
       <ul class="nav nav-tabs nav-tabs-line" role="tablist" id="exampleFilter">
+
         <li class="nav-item" role="presentation">
             <a class="active nav-link" href="#" aria-controls="exampleList" aria-expanded="true" role="tab" data-filter="*">All</a>
         </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="2017">2017</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="2018">2018</a>
-        </li>
+
+        <?php
+        foreach($concursos as $concurso){
+        ?>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="<?= $concurso->id_concurso ?>"><?= $concurso->txt_nombre ?></a>
+            </li>
+        <?php
+        }
+        ?>
+
       </ul>
     </div>
   </div>
@@ -87,31 +93,35 @@ $this->registerJsFile(
     <div class="row" data-plugin="filterable" data-filters="#exampleFilter">
         
         <?php
+        foreach ($concursos as $concurso){
             foreach ($videos as $video){
         ?>
         
-            <div class="col-md-4" data-type="2018">
-                <div class="card card-shadow">
-                    <figure class="card-img-top overlay-hover overlay">
-                        <video class="overlay-video overlay-figure overlay-scale">
-                            <source src="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>" type="video/mp4">
-                            <!-- <source src="video.ogg" type="video/ogg">
-                            <source src="video.webm" type="video/webm"> -->
-                            Tu navegar no soporta la etiqueta de video.
-                        </video> 
+            <div class="col-md-4" data-type="<?= $concurso->id_concurso ?>">
+                <?php if($concurso->id_concurso == $video->id_concurso){ ?>
+                    <div class="card card-shadow">
+                        <figure class="card-img-top overlay-hover overlay">
+                            <video class="overlay-video overlay-figure overlay-scale">
+                                <source src="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>" type="video/mp4">
+                                <!-- <source src="video.ogg" type="video/ogg">
+                                <source src="video.webm" type="video/webm"> -->
+                                Tu navegar no soporta la etiqueta de video.
+                            </video> 
 
-                        <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
-                            <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>"></a>
-                            <a class="icon wb-trash" href="#"></a>
-                            <a class="icon wb-pencil" href="#"></a>
-                            <p class="card-block"><?= $video->txt_nombre ?></p>
-                        </figcaption>
-                    </figure>
-                </div>
+                            <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
+                                <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>"></a>
+                                <a class="icon wb-trash" href="#"></a>
+                                <a class="icon wb-pencil" href="#"></a>
+                                <p class="card-block"><?= $video->txt_nombre ?></p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                <?php } ?>
             </div>
         
-        <?
+        <?php
             }
+        }
         ?>
     </div>
   
