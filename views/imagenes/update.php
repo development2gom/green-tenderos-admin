@@ -7,7 +7,7 @@ use app\assets\AppAsset;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntImagenes */
 
-$this->title = 'Update Ent Imagenes: {nameAttribute}';
+$this->title = 'Editar imagen: ' . $model->txt_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Ent Imagenes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_imagen, 'url' => ['view', 'id' => $model->id_imagen]];
 $this->params['breadcrumbs'][] = 'Update';
