@@ -90,6 +90,7 @@ class EntImagenes extends \yii\db\ActiveRecord
         if($this->fileUpload)
         {
             $path = Yii::$app->params['path_imagenes'].$this->txt_nombre.'.'.$this->fileUpload->extension;
+            // $path2=$this->txt_nombre.'.'.$this->fileUpload->extension;
             $this->txt_url=$path;
         }
     }

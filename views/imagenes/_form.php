@@ -22,8 +22,8 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($model, 'txt_nombre')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-12">
-            <?= $form->field($model, 'fileUpload')->fileInput(['accept'=>'image/*']) ?>
-            <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="" data-default-file="" />
+        <?= $form->field($model, 'fileUpload')->fileInput(['accept'=>'image/*','data-plugin'=>'dropify']) ?>
+           
         </div>
 
         <div class="col-12 col-actions">

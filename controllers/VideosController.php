@@ -80,7 +80,7 @@ class VideosController extends Controller
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
            $model->b_publicado = 1;
                 if ($model->guardarRegistro()) {
-                    return $this->redirect(['view', 'id' => $model->id_video]);
+                    return $this->redirect(['index']);
                 } 
 
             
