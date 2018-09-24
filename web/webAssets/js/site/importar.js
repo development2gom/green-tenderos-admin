@@ -14,9 +14,9 @@ $(document).ready(function(){
             processData: false,
             success: function(resp){
                 if(resp.status == "success"){
-                    //swal("Correcto", "Los datos se guardaron correctamente", "success");
+                    swal("Correcto", "Los datos se guardaron correctamente", "success");
                 }else{
-                    //swal("Espera", "Hubo un error, intentelo de nuevo", "warning");
+                    swal("Espera", "Hubo un error, intentelo de nuevo", "warning");
                 }
                 input.val('');
             },

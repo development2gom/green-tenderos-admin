@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\EntVideos;
+use app\models\CatConcurso;
 
 /**
  * ImagenesController implements the CRUD actions for EntImagenes model.
@@ -40,9 +41,14 @@ class ImagenesController extends Controller
         $searchModel = new EntImagenesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $imagenes = EntImagenes::find()->all();
+        $concursos = CatConcurso::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'imagenes' => $imagenes,
+            'concursos' => $concursos
         ]);
     }
 

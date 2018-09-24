@@ -168,7 +168,7 @@ class SiteController extends Controller
                         continue;
                     
                     try{
-                        $bodega = CatBodegas::find()->where(['id_bodega'=>$data[2]])->one();
+                        $bodega = CatBodegas::find()->where(['txt_clave_bodega'=>$data[2]])->one();
                         if($bodega){
                             $tienda = CatTiendas::find()->where(['txt_clave_tienda'=>$data[0], 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
                             if(!$tienda){
@@ -248,17 +248,23 @@ class SiteController extends Controller
                             }
 
                         }else{
-                            $transaction->rollBack();
-                            echo "No se encontro la bodega";
-                            
-                            return [
-                                'status' => 'error'
-                            ];
+                            $nuevaBodega = new CatBodegas();
+                            $nuevaBodega->txt_clave_bodega = $data[2];
+                            $nuevaBodega->txt_nombre = $data[2];
+
+                            if(!$nuevaBodega->save()){
+                                $transaction->rollBack();
+                                echo "No se encontro la bodega";
+                                
+                                return [
+                                    'status' => 'error'
+                                ];
+                            }
                         }
                         // foreach($data as $d){
                         //     echo $d."<br/>";
                         // }
-                    }catch (\Exception $e) {
+                    }catch(\Exception $e){
                         $transaction->rollBack();
                         throw $e;
 

@@ -1,6 +1,8 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
+use app\assets\AppAsset;
 use yii\grid\GridView;
 use app\models\EntImagenes;
 use app\models\Constantes;
@@ -9,45 +11,120 @@ use app\models\Constantes;
 /* @var $searchModel app\models\EntImagenesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$imagenes = EntImagenes::find()->where(['b_publicado'=>1])->all();
-$this->title = 'Imagenes';
+$this->title = 'Imágenes';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile(
+    '@web/webAssets/templates/classic/global/vendor/magnific-popup/magnific-popup.css',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerCssFile(
+  '@web/webAssets/templates/classic/topbar/assets/examples/css/pages/gallery.css',
+  ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/vendor/magnific-popup/jquery.magnific-popup.min.js',
+  ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/vendor/isotope/isotope.pkgd.min.js',
+  ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/js/Plugin/asscrollable.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/js/Plugin/slidepanel.js',
+  ['depends' => [AppAsset::className()]]
+);
+
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/global/js/Plugin/switchery.js',
+    ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/js/Plugin/filterable.js',
+  ['depends' => [AppAsset::className()]]
+);
+$this->registerJsFile(
+    '@web/webAssets/templates/classic/topbar/assets/examples/js/pages/gallery.js',
+    ['depends' => [AppAsset::className()]]
+);
+
 ?>
-<div class="ent-imagenes-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Nueva imagen', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="page-gallery">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+  <div class="page-gallery-head">
 
-            // 'id_imagen',
-            // 'txt_nombre',
-            [
-                'attribute' => 'txt_nombre',
-                'format' => 'raw',
-                'value' => function ($model){
-               
-                   echo $model->txt_url;
-                    
-                    
-                    return Html::a($model->txt_nombre, 'view/'.$model->id_imagen);
-                },
-            ],
-            // 'txt_url:url',
-            // 'b_habilitado',
+    <div class="page-gallery-header">
+      <div class="page-gallery-header-title">
+        <h2><?= Html::encode($this->title) ?></h2>
+      </div>
+      <div class="page-gallery-header-actions">
+        <?= Html::a('<span><i class="icon wb-plus" aria-hidden="true"></i>Agregar imagen</span>', ['create'], ['class' => 'btn btn-animate btn-animate-vertical btn-primary no-pjax']) ?>
+      </div>
+    </div>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); 
-    
-    ?>
-    
+    <div class="page-gallery-head-filter">
+      <ul class="nav nav-tabs nav-tabs-line" role="tablist" id="exampleFilter">
+
+        <li class="nav-item" role="presentation">
+          <a class="active nav-link" href="#" aria-controls="exampleList" aria-expanded="true" role="tab" data-filter="*">All</a>
+        </li>
+      
+        <?php
+        foreach($concursos as $concurso){
+        ?>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="<?= $concurso->id_concurso ?>"><?= $concurso->txt_nombre ?></a>
+            </li>
+        <?php
+        }
+        ?>
+      
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-gallery-body">
+
+    <div class="row" data-plugin="filterable" data-filters="#exampleFilter">
+      <?php
+      foreach ($concursos as $concurso){
+        foreach ($imagenes as $imagen){
+        ?>
+        
+          <div class="col-md-4" data-type="<?= $concurso->id_concurso ?>">
+            <?php if($concurso->id_concurso == $imagen->id_concurso){ ?>
+              <div class="card card-shadow">
+                  <figure class="card-img-top overlay-hover overlay">
+                      <img class="overlay-figure overlay-scale" src="<?= Url::base() ?>/imagenes-ganadores/<?= $imagen->txt_url ?>"
+                      alt="...">
+                      <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
+                        <a class="icon wb-search" href="<?= Url::base() ?>/imagenes-ganadores/<?= $imagen->txt_url ?>"></a>
+                        <a class="icon wb-trash" href="#"></a>
+                        <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
+                        <p class="card-block"><?= $imagen->txt_nombre ?></p>
+                      </figcaption>
+                  </figure>
+              </div>
+            <?php } ?>
+          </div>
+      
+      <?php
+        }
+      }
+      ?>
+    </div>
+  
+  </div>
+
 </div>
+
+
+

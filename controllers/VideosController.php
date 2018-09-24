@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\CatConcurso;
 
 
 /**
@@ -40,9 +41,14 @@ class VideosController extends Controller
         $searchModel = new EntVideosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $videos = EntVideos::find()->all();
+        $concursos = CatConcurso::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'videos' => $videos,
+            'concursos' => $concursos
         ]);
     }
 
