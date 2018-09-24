@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\CatConcurso;
+use app\components\AccessControlExtend;
 
 
 /**
@@ -23,12 +24,25 @@ class VideosController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                        'allow' => true,
+                        'roles' => ['super-admin'],
+                    ],
+                   
                 ],
             ],
+
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'delete' => ['POST'],
+            //     ],
+            // ],
         ];
     }
 
@@ -121,9 +135,17 @@ class VideosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        $video = $this->findModel($id);
+        if($video){
+            if($video->delete()){
+                unlink(/*Url::base() . "/" .*/ Yii::$app->params['path_videos'] . $video->txt_url);
+                return ['status'=>'success'];
+            }
+        }
+
+        return ['status'=>'error'];
     }
 
     /**

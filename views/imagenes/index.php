@@ -53,6 +53,28 @@ $this->registerJsFile(
     ['depends' => [AppAsset::className()]]
 );
 
+$this->registerCssFile(
+  '@web/webAssets/templates/classic/global/vendor/toastr/toastr.css',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
+$this->registerCssFile(
+  '@web/webAssets/templates/classic/topbar/assets/examples/css/advanced/toastr.css',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
+
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/vendor/toastr/toastr.js',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
+$this->registerJsFile(
+  '@web/webAssets/templates/classic/global/js/Plugin/toastr.js',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
+
+$this->registerJsFile(
+  '@web/webAssets/js/imagenes/index.js',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
 ?>
 
 
@@ -98,7 +120,7 @@ $this->registerJsFile(
         foreach ($imagenes as $imagen){
         ?>
         
-          <div class="col-md-4" data-type="<?= $concurso->id_concurso ?>">
+          <div class="col-md-4 js-imagen-<?= $imagen->id_imagen ?>" data-type="<?= $concurso->id_concurso ?>">
             <?php if($concurso->id_concurso == $imagen->id_concurso){ ?>
               <div class="card card-shadow">
                   <figure class="card-img-top overlay-hover overlay">
@@ -106,7 +128,7 @@ $this->registerJsFile(
                       alt="...">
                       <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
                         <a class="icon wb-search" href="<?= Url::base() ?>/imagenes-ganadores/<?= $imagen->txt_url ?>"></a>
-                        <a class="icon wb-trash" href="#"></a>
+                        <a class="icon wb-trash js-delete-imagen" href="#" data-url="<?= Url::base() ?>" data-id=<?= $imagen->id_imagen ?> ></a>
                         <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
                         <p class="card-block"><?= $imagen->txt_nombre ?></p>
                       </figcaption>

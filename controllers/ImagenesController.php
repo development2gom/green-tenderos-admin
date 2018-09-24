@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\EntVideos;
 use app\models\CatConcurso;
+use yii\helpers\Url;
+use app\components\AccessControlExtend;
 
 /**
  * ImagenesController implements the CRUD actions for EntImagenes model.
@@ -22,13 +24,27 @@ class ImagenesController extends Controller
      */
     public function behaviors()
     {
+
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                        'allow' => true,
+                        'roles' => ['super-admin'],
+                    ],
+                   
                 ],
             ],
+
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'delete' => ['POST'],
+            //     ],
+            // ],
         ];
     }
 
@@ -119,11 +135,18 @@ class ImagenesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    public function actionDelete($id){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        $imagen = $this->findModel($id);
+        if($imagen){
+            if($imagen->delete()){
+                unlink(/*Url::base() . "/" .*/ Yii::$app->params['path_imagenes'] . $imagen->txt_url);
+                return ['status'=>'success'];
+            }
+        }
+
+        return ['status'=>'error'];
     }
 
     /**
