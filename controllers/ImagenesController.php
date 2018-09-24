@@ -35,7 +35,7 @@ class ImagenesController extends Controller
                         'allow' => true,
                         'roles' => ['super-admin'],
                     ],
-                   
+
                 ],
             ],
 
@@ -90,20 +90,19 @@ class ImagenesController extends Controller
     {
         $model = new EntImagenes();
         $model->scenario = 'create';
-        
-        $model->b_habilitado = 1;
-        $model->b_publicado=1;
-        if ($model->load(Yii::$app->request->post())) {
-           
-            $model->fileUpload = UploadedFile::getInstance($model,'fileUpload');
-           
-            if ($model->guardarRegistro()) {
-               
-                    return $this->redirect(['index']);
 
-                
-            }
-            else{
+        $model->b_habilitado = 1;
+        $model->b_publicado = 1;
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
+
+            if ($model->guardarRegistro()) {
+
+                return $this->redirect(['index']);
+
+
+            } else {
                 print_r($model->errors);
             }
         }
@@ -141,18 +140,19 @@ class ImagenesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id){
+    public function actionDelete($id)
+    {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $imagen = $this->findModel($id);
-        if($imagen){
-            if($imagen->delete()){
-                unlink(/*Url::base() . "/" .*/ Yii::$app->params['path_imagenes'] . $imagen->txt_url);
-                return ['status'=>'success'];
+        if ($imagen) {
+            if ($imagen->delete()) {
+                unlink(/*Url::base() . "/" .*/Yii::$app->params['path_imagenes'] . $imagen->txt_url);
+                return ['status' => 'success'];
             }
         }
 
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 
     /**
@@ -171,20 +171,21 @@ class ImagenesController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionPublicarImagen($id){
+    public function actionPublicarImagen($id)
+    {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $imagen = EntImagenes::find()->where(['id_imagen'=>$id])->one();
+        $imagen = EntImagenes::find()->where(['id_imagen' => $id])->one();
         $imagen->scenario = 'update';
-        
-        $imagen->b_publicado = 1;
-        if($imagen->save()){
 
-            return ['status'=>'success'];
-        }else{
+        $imagen->b_publicado = 1;
+        if ($imagen->save()) {
+
+            return ['status' => 'success'];
+        } else {
             print_r($imagen->errors);
         }
 
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 }

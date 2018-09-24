@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use app\assets\AppAsset;
 
+$this->title = 'Cargar exel';
 $this->registerJsFile(
     '@web/webAssets/js/site/importar.js',
     ['depends' => [AppAsset::className()]]
