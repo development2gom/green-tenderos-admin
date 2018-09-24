@@ -1,6 +1,7 @@
 $(document).ready(function(){
     // toastr.success("Datos guardados correctamente.");
     // toastr.warning("No se pudieron guardar los datos");
+    var $grid = $('.js-grid').isotope();
 
     $(".js-delete-video").on('click', function(){
         var id = $(this).data('id');
@@ -12,6 +13,7 @@ $(document).ready(function(){
                 if(resp.status == 'success'){
                     toastr.success("Video eliminado correctamente.");
                     $('.js-video-'+id).remove();
+                    $grid.isotope('updateSortData').isotope();
                 }else{
                     toastr.warning("No se pudo eliminar el video");
                 }
@@ -21,6 +23,7 @@ $(document).ready(function(){
             }
         });
     });
+
 });
 
 function configToastr(){
