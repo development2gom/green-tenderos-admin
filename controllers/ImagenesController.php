@@ -90,15 +90,21 @@ class ImagenesController extends Controller
     {
         $model = new EntImagenes();
         $model->scenario = 'create';
-
+        
         $model->b_habilitado = 1;
+        $model->b_publicado=1;
         if ($model->load(Yii::$app->request->post())) {
-            $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
+           
+            $model->fileUpload = UploadedFile::getInstance($model,'fileUpload');
+           
             if ($model->guardarRegistro()) {
                
-                    return $this->redirect(['view', 'id' => $model->id_imagen]);
+                    return $this->redirect(['index']);
 
                 
+            }
+            else{
+                print_r($model->errors);
             }
         }
 

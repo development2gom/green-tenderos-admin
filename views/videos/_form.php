@@ -22,8 +22,8 @@ use app\models\CatConcurso;
         </div>
 
         <div class="col-12">
-            <?= $form->field($model, 'fileUpload')->fileInput() ?>
-            <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="" data-default-file="" />
+            <?= $form->field($model, 'fileUpload')->fileInput(['data-plugin'=>'dropify']) ?>
+            <!-- <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="" data-default-file="" /> -->
         </div>
         
         <div class="col-12 col-actions">
