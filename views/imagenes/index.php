@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\EntImagenes;
+use app\models\Constantes;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntImagenesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$imagenes = EntImagenes::find()->where(['b_publicado'=>1])->all();
 $this->title = 'Imagenes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'txt_nombre',
                 'format' => 'raw',
                 'value' => function ($model){
-
+               
+                   echo $model->txt_url;
+                    
+                    
                     return Html::a($model->txt_nombre, 'view/'.$model->id_imagen);
                 },
             ],
@@ -41,5 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]); 
+    
+    ?>
+    
 </div>
