@@ -4,17 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\CatConcurso;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\EntVideos */
 /* @var $form yii\widgets\ActiveForm */
+$Concursovideo = CatConcurso::find()->where(['b_habilitado' => 1])->OrderBy('txt_nombre ASC')->all();
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
         <div class="col-12">
-            <?= $form->field($model, 'id_concurso')->dropDownList(ArrayHelper::map(CatConcurso::find()->where(['b_habilitado'=>1])->OrderBy('txt_nombre ASC')->all(), 'id_concurso', 'txt_nombre'), ['prompt'=>'Seleccionar concurso']) ?>   
+            <?= $form->field($model, 'id_concurso')->widget(Select2::classname(), ['data' => ArrayHelper::map($Concursovideo, 'id_concurso', 'txt_nombre'), 'language' => 'es', 'options' => ['placeholder' => 'Seleccionar concurso'], 'pluginOptions' => ['allowClear' => true], ])->label("Concurso"); ?> 
+
         </div>
 
         <div class="col-12">
@@ -22,7 +25,7 @@ use app\models\CatConcurso;
         </div>
 
         <div class="col-12">
-            <?= $form->field($model, 'fileUpload')->fileInput(['data-plugin'=>'dropify']) ?>
+            <?= $form->field($model, 'fileUpload')->fileInput(['data-plugin' => 'dropify']) ?>
             <!-- <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="" data-default-file="" /> -->
         </div>
         

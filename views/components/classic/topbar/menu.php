@@ -12,7 +12,7 @@ use yii\helpers\Url;
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
               <i class="site-menu-icon wb-stats-bars" aria-hidden="true"></i>
-              <span class="site-menu-title">Reportes</span>
+              <span class="site-menu-title">Carga</span>
               <span class="site-menu-arrow"></span>
             </a>
             <div class="dropdown-menu">

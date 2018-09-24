@@ -15,8 +15,8 @@ $this->title = 'Imágenes';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCssFile(
-    '@web/webAssets/templates/classic/global/vendor/magnific-popup/magnific-popup.css',
-    ['depends' => [AppAsset::className()]]
+  '@web/webAssets/templates/classic/global/vendor/magnific-popup/magnific-popup.css',
+  ['depends' => [AppAsset::className()]]
 );
 $this->registerCssFile(
   '@web/webAssets/templates/classic/topbar/assets/examples/css/pages/gallery.css',
@@ -33,8 +33,8 @@ $this->registerJsFile(
 );
 
 $this->registerJsFile(
-    '@web/webAssets/templates/classic/global/js/Plugin/asscrollable.js',
-    ['depends' => [AppAsset::className()]]
+  '@web/webAssets/templates/classic/global/js/Plugin/asscrollable.js',
+  ['depends' => [AppAsset::className()]]
 );
 $this->registerJsFile(
   '@web/webAssets/templates/classic/global/js/Plugin/slidepanel.js',
@@ -42,16 +42,16 @@ $this->registerJsFile(
 );
 
 $this->registerJsFile(
-    '@web/webAssets/templates/classic/global/js/Plugin/switchery.js',
-    ['depends' => [AppAsset::className()]]
+  '@web/webAssets/templates/classic/global/js/Plugin/switchery.js',
+  ['depends' => [AppAsset::className()]]
 );
 $this->registerJsFile(
   '@web/webAssets/templates/classic/global/js/Plugin/filterable.js',
   ['depends' => [AppAsset::className()]]
 );
 $this->registerJsFile(
-    '@web/webAssets/templates/classic/topbar/assets/examples/js/pages/gallery.js',
-    ['depends' => [AppAsset::className()]]
+  '@web/webAssets/templates/classic/topbar/assets/examples/js/pages/gallery.js',
+  ['depends' => [AppAsset::className()]]
 );
 
 $this->registerCssFile(
@@ -100,14 +100,15 @@ $this->registerJsFile(
         </li>
       
         <?php
-        foreach($concursos as $concurso){
-        ?>
+        foreach ($concursos as $concurso) {
+          ?>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" href="#" aria-expanded="false" role="tab" data-filter="<?= $concurso->id_concurso ?>"><?= $concurso->txt_nombre ?></a>
             </li>
         <?php
-        }
-        ?>
+
+      }
+      ?>
       
       </ul>
     </div>
@@ -117,10 +118,10 @@ $this->registerJsFile(
 
     <div class="row js-grid" data-plugin="filterable" data-filters="#exampleFilter">
       <?php
-      foreach ($concursos as $concurso){
-        foreach ($imagenes as $imagen){
-        ?>
-          <?php if($concurso->id_concurso == $imagen->id_concurso){ ?>
+      foreach ($concursos as $concurso) {
+        foreach ($imagenes as $imagen) {
+          ?>
+          <?php if ($concurso->id_concurso == $imagen->id_concurso) { ?>
         
             <div class="col-md-4 js-imagen-<?= $imagen->id_imagen ?>" data-type="<?= $concurso->id_concurso ?>">
                 <div class="card card-shadow">
@@ -137,10 +138,11 @@ $this->registerJsFile(
                 </div>
             </div>     
       <?php
-          }
-        }
-      }
-      ?>
+
+    }
+  }
+}
+?>
     </div>
   
   </div>

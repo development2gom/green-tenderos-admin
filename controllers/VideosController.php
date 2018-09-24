@@ -33,7 +33,7 @@ class VideosController extends Controller
                         'allow' => true,
                         'roles' => ['super-admin'],
                     ],
-                   
+
                 ],
             ],
 
@@ -92,12 +92,12 @@ class VideosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
-           $model->b_publicado = 1;
-                if ($model->guardarRegistro()) {
-                    return $this->redirect(['index']);
-                } 
+            $model->b_publicado = 1;
+            if ($model->guardarRegistro()) {
+                return $this->redirect(['index']);
+            }
 
-            
+
         }
 
         return $this->render('create', [
@@ -138,14 +138,14 @@ class VideosController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $video = $this->findModel($id);
-        if($video){
-            if($video->delete()){
-                unlink(/*Url::base() . "/" .*/ Yii::$app->params['path_videos'] . $video->txt_url);
-                return ['status'=>'success'];
+        if ($video) {
+            if ($video->delete()) {
+                unlink(/*Url::base() . "/" .*/Yii::$app->params['path_videos'] . $video->txt_url);
+                return ['status' => 'success'];
             }
         }
 
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 
     /**
@@ -164,20 +164,21 @@ class VideosController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionPublicarVideo($id){
+    public function actionPublicarVideo($id)
+    {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $video = EntVideos::find()->where(['id_video'=>$id])->one();
+        $video = EntVideos::find()->where(['id_video' => $id])->one();
         $video->scenario = 'update';
 
         $video->b_publicado = 1;
-        if($video->save()){
+        if ($video->save()) {
 
-            return ['status'=>'success'];
-        }else{
+            return ['status' => 'success'];
+        } else {
             print_r($video->errors);
         }
 
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 }
