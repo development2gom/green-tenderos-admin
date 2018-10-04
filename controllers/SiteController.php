@@ -322,7 +322,8 @@ class SiteController extends Controller
                                 echo "No se encontro la bodega";
                                 
                                 return [
-                                    'status' => 'error'
+                                    'status' => 'error',
+                                    'result' => $bodega->errors
                                 ];
                             }
                         }
@@ -337,10 +338,10 @@ class SiteController extends Controller
 
                             if(!$tienda->save()){
                                 $transaction->rollBack();
-                                print_r($tienda->errors);
 
                                 return [
-                                    'status' => 'error'
+                                    'status' => 'error',
+                                    'result' => $tienda->errors
                                 ];
                             }   
                         }
@@ -357,10 +358,10 @@ class SiteController extends Controller
 
                         if(!$historial->save()){
                             $transaction->rollBack();
-                            print_r($historial->errors);
                             
                             return [
-                                'status' => 'error'
+                                'status' => 'error',
+                                'result' => $historial->errors
                             ];
                         }
 
@@ -400,22 +401,19 @@ class SiteController extends Controller
 
                         if(!$puntajeActual->save()){
                             $transaction->rollBack();
-                            print_r($puntajeActual->errors);
                             
                             return [
-                                'status' => 'error'
+                                'status' => 'error',
+                                'result' => $puntajeActual->errors
                             ];
                         }
-                        
-                        // foreach($data as $d){
-                        //     echo $d."<br/>";
-                        // }
                     }catch(\Exception $e){
                         $transaction->rollBack();
                         throw $e;
 
                         return [
-                            'status' => 'error'
+                            'status' => 'error',
+                            'result' => $e
                         ];
                     }
                 }
