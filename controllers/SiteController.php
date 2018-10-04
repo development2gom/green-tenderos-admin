@@ -306,6 +306,10 @@ class SiteController extends Controller
                 foreach($sheetData as  $key => $data){
                     if($key == 0)
                         continue;
+
+                    if($data[0] == null){
+                        break;
+                    }
                     
                     $claveTienda = $data[0] . $data[3] . $data[7];
                     
@@ -314,15 +318,15 @@ class SiteController extends Controller
                         if(!$bodega){
 
                             $bodega = new CatBodegas();
-                            $bodega->txt_clave_bodega = $data[2];
-                            $bodega->txt_nombre = $data[2];
+                            $bodega->txt_clave_bodega = "".$data[2];
+                            $bodega->txt_nombre = "".$data[2];
 
                             if(!$bodega->save()){
                                 $transaction->rollBack();
-                                echo "No se encontro la bodega";
+                                echo "No se encontro la bodega -- ".$key;
                                 
                                 return [
-                                    'status' => 'error',
+                                    'status' => 'error1',
                                     'result' => $bodega->errors
                                 ];
                             }
@@ -331,16 +335,17 @@ class SiteController extends Controller
                         $tienda = CatTiendas::find()->where(['txt_clave_tienda'=>$claveTienda, 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
                         if(!$tienda){
                             $tienda = new CatTiendas();
-                            $tienda->txt_clave_tienda = $data[0];
+                            $tienda->txt_clave_tienda = $claveTienda;
                             $tienda->txt_clave_bodega = $bodega->txt_clave_bodega;
-                            $tienda->txt_nombre = $data[1];
-                            $tienda->txt_nud = $data[7];
+                            $tienda->txt_nombre = $data[8];
+                            $tienda->txt_nud = "".$data[7];
 
                             if(!$tienda->save()){
                                 $transaction->rollBack();
+                                echo " -- ".$key;
 
                                 return [
-                                    'status' => 'error',
+                                    'status' => 'error2',
                                     'result' => $tienda->errors
                                 ];
                             }   
@@ -352,15 +357,16 @@ class SiteController extends Controller
                         $historial->txt_clave_tienda = $tienda->txt_clave_tienda;
                         //$fecha = date("Y-m-d", strtotime(new Date()));
                         $historial->fch_compra = '2018-08-15';
-                        $historial->num_saldo_anterior = $data[14];//acumulado
-                        $historial->num_saldo_mes = $data[13];//agosto
-                        $historial->num_saldo_acumulado = $data[15];//saldo total
+                        $historial->num_saldo_anterior = $data[15];//acumulado
+                        $historial->num_saldo_mes = $data[14];//agosto
+                        $historial->num_saldo_acumulado = $data[16];//saldo total
 
                         if(!$historial->save()){
                             $transaction->rollBack();
+                            echo " -- ".$key;
                             
                             return [
-                                'status' => 'error',
+                                'status' => 'error3',
                                 'result' => $historial->errors
                             ];
                         }
@@ -388,7 +394,7 @@ class SiteController extends Controller
                             $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
                             $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
                             $puntajeActual->num_puntos_sig_experiencia = $siguienteNivel;
-                            $puntajeActual->txt_leyenda = $data[18];
+                            $puntajeActual->txt_leyenda = $data[19];
                         }else{
                             $puntajeActual->id_nivel = $idNivel;
                             $puntajeActual->num_puntuaje_actual = $historial->num_saldo_acumulado;
@@ -396,23 +402,25 @@ class SiteController extends Controller
                             $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
                             $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
                             $puntajeActual->num_puntos_sig_experiencia = $siguienteNivel;
-                            $puntajeActual->txt_leyenda = $data[18];
+                            $puntajeActual->txt_leyenda = $data[19];
                         }
 
                         if(!$puntajeActual->save()){
                             $transaction->rollBack();
+                            echo " -- ".$key;
                             
                             return [
-                                'status' => 'error',
+                                'status' => 'error4',
                                 'result' => $puntajeActual->errors
                             ];
                         }
                     }catch(\Exception $e){
                         $transaction->rollBack();
                         throw $e;
+                        echo " -- ".$key;
 
                         return [
-                            'status' => 'error',
+                            'status' => 'error5',
                             'result' => $e
                         ];
                     }
@@ -425,7 +433,7 @@ class SiteController extends Controller
             }
 
             return [
-                'status' => 'error'
+                'status' => 'error6'
             ];
         }
 

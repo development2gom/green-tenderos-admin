@@ -38,7 +38,7 @@ class WrkHistorial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_concurso', 'num_saldo_anterior', 'num_saldo_mes', 'num_saldo_acumulado', 'b_habilitado'], 'integer'],
+            [['id_concurso', 'num_saldo_anterior', 'num_saldo_mes', 'b_habilitado'], 'integer'],
             [['txt_clave_bodega', 'txt_clave_tienda'], 'required'],
             [['fch_registro', 'fch_compra'], 'safe'],
             [['txt_clave_bodega', 'txt_clave_tienda'], 'string', 'max' => 50],
