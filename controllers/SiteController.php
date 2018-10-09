@@ -304,7 +304,7 @@ class SiteController extends Controller
                 $transaction = Yii::$app->db->beginTransaction();
 
                 foreach($sheetData as  $key => $data){
-                    if($key == 0)
+                    if($key == 0 )
                         continue;
 
                     if($data[0] == null){

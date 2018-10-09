@@ -7,4 +7,4 @@ RewriteRule . index.php
 
 php_value memory_limit 1024M
 php_value upload_max_filesize 30M
-php_value max_execution_time 300
+php_value max_execution_time 900
