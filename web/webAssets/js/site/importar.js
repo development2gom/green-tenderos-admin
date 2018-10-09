@@ -3,11 +3,11 @@ $(document).ready(function(){
         var url = $(this).data("url");
         var formulario = $(this).parents("form");
         var formData = new FormData(formulario.get(0));
-        
+        console.log(formData);
         var input = $(this);
 
         $.ajax({
-            url: url + '/site/importar-data',
+            url: url + '/site/importar-datos',
             type: 'POST',
             data: formData,
             contentType: false,

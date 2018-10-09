@@ -287,4 +287,156 @@ class SiteController extends Controller
 
         return $this->render('importar_datos');
     }
+
+    public function actionImportarDatos(){  
+
+        if(Yii::$app->request->isPost){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            $file = UploadedFile::getInstanceByName('file-import');
+            
+            if($file){
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+                $spreadsheet = $reader->load($file->tempName);
+                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+                
+                $transaction = Yii::$app->db->beginTransaction();
+
+                foreach($sheetData as  $key => $data){
+                    if($key == 0 )
+                        continue;
+
+                    if($data[0] == null){
+                        break;
+                    }
+                    
+                    $claveTienda = $data[0] . $data[3] . $data[7];
+                    
+                    try{
+                        $bodega = CatBodegas::find()->where(['txt_clave_bodega'=>$data[2]])->one();
+                        if(!$bodega){
+
+                            $bodega = new CatBodegas();
+                            $bodega->txt_clave_bodega = "".$data[2];
+                            $bodega->txt_nombre = "".$data[2];
+
+                            if(!$bodega->save()){
+                                $transaction->rollBack();
+                                echo "No se encontro la bodega -- ".$key;
+                                
+                                return [
+                                    'status' => 'error1',
+                                    'result' => $bodega->errors
+                                ];
+                            }
+                        }
+
+                        $tienda = CatTiendas::find()->where(['txt_clave_tienda'=>$claveTienda, 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
+                        if(!$tienda){
+                            $tienda = new CatTiendas();
+                            $tienda->txt_clave_tienda = $claveTienda;
+                            $tienda->txt_clave_bodega = $bodega->txt_clave_bodega;
+                            $tienda->txt_nombre = $data[8];
+                            $tienda->txt_nud = "".$data[7];
+
+                            if(!$tienda->save()){
+                                $transaction->rollBack();
+                                echo " -- ".$key;
+
+                                return [
+                                    'status' => 'error2',
+                                    'result' => $tienda->errors
+                                ];
+                            }   
+                        }
+
+                        $historial = new WrkHistorial();
+                        $historial->id_concurso = 1;
+                        $historial->txt_clave_bodega = $bodega->txt_clave_bodega;
+                        $historial->txt_clave_tienda = $tienda->txt_clave_tienda;
+                        //$fecha = date("Y-m-d", strtotime(new Date()));
+                        $historial->fch_compra = '2018-08-15';
+                        $historial->num_saldo_anterior = $data[15];//acumulado
+                        $historial->num_saldo_mes = $data[14];//agosto
+                        $historial->num_saldo_acumulado = $data[16];//saldo total
+
+                        if(!$historial->save()){
+                            $transaction->rollBack();
+                            echo " -- ".$key;
+                            
+                            return [
+                                'status' => 'error3',
+                                'result' => $historial->errors
+                            ];
+                        }
+
+                        $idNivel;
+                        $siguienteNivel;
+                        $niveles = CatNiveles::find()->where(['b_habilitado'=>1])->all();
+                        foreach($niveles as $nivel){
+                            if($nivel->num_rango_inicial <= $historial->num_saldo_acumulado && $nivel->num_rango_final >= $historial->num_saldo_acumulado){
+                                $idNivel = $nivel->id_nivel;
+                                $siguienteNivel = $nivel->num_rango_final - $historial->num_saldo_acumulado;
+                                break;
+                            }
+                        }
+
+                        $puntajeActual = WrkPuntuajeActual::find()->where(['txt_clave_tienda'=>$tienda->txt_clave_tienda, 'txt_clave_bodega'=>$bodega->txt_clave_bodega])->one();
+                        if(!$puntajeActual){
+                            $puntajeActual = new WrkPuntuajeActual();
+                            $puntajeActual->txt_clave_bodega = $bodega->txt_clave_bodega;
+                            $puntajeActual->txt_clave_tienda = $tienda->txt_clave_tienda;
+                            $puntajeActual->id_nivel = $idNivel;
+                            $puntajeActual->id_concurso = Constantes::CONCURSO;
+                            $puntajeActual->num_puntuaje_actual = $historial->num_saldo_acumulado;
+                            $puntajeActual->num_saldo_anterior = $historial->num_saldo_anterior;
+                            $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
+                            $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
+                            $puntajeActual->num_puntos_sig_experiencia = $siguienteNivel;
+                            $puntajeActual->txt_leyenda = $data[19];
+                        }else{
+                            $puntajeActual->id_nivel = $idNivel;
+                            $puntajeActual->num_puntuaje_actual = $historial->num_saldo_acumulado;
+                            $puntajeActual->num_saldo_anterior = $historial->num_saldo_anterior;
+                            $puntajeActual->num_saldo_mes = $historial->num_saldo_mes;
+                            $puntajeActual->num_saldo_acumulado = $historial->num_saldo_acumulado;
+                            $puntajeActual->num_puntos_sig_experiencia = $siguienteNivel;
+                            $puntajeActual->txt_leyenda = $data[19];
+                        }
+
+                        if(!$puntajeActual->save()){
+                            $transaction->rollBack();
+                            echo " -- ".$key;
+                            
+                            return [
+                                'status' => 'error4',
+                                'result' => $puntajeActual->errors
+                            ];
+                        }
+                    }catch(\Exception $e){
+                        $transaction->rollBack();
+                        throw $e;
+                        echo " -- ".$key;
+
+                        return [
+                            'status' => 'error5',
+                            'result' => $e
+                        ];
+                    }
+                }
+                $transaction->commit();
+
+                return [
+                    'status' => 'success'
+                ];
+            }
+
+            return [
+                'status' => 'error6'
+            ];
+        }
+
+        return $this->render('importar_datos');
+    }
 }
