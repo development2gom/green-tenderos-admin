@@ -40,7 +40,8 @@ class WrkPuntuajeActual extends \yii\db\ActiveRecord
     {
         return [
             [['txt_clave_bodega', 'txt_clave_tienda'], 'required'],
-            [['id_nivel', 'id_concurso', 'num_puntuaje_actual', 'num_saldo_anterior', 'num_saldo_mes', 'num_saldo_acumulado', 'b_habilitado'], 'integer'],
+            [['num_saldo_anterior', 'num_saldo_mes', 'b_habilitado'], 'number'],
+            [['id_nivel', 'id_concurso', 'b_habilitado'], 'integer'],
             [['txt_clave_bodega', 'txt_clave_tienda'], 'string', 'max' => 50],
             [['txt_leyenda'], 'string', 'max' => 200],
             [['txt_clave_bodega'], 'exist', 'skipOnError' => true, 'targetClass' => CatBodegas::className(), 'targetAttribute' => ['txt_clave_bodega' => 'txt_clave_bodega']],
