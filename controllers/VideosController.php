@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\CatConcurso;
+use app\components\AccessControlExtend;
 
 
 /**
@@ -22,12 +24,25 @@ class VideosController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControlExtend::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'publicar-imagen'],
+                        'allow' => true,
+                        'roles' => ['super-admin'],
+                    ],
+
                 ],
             ],
+
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'delete' => ['POST'],
+            //     ],
+            // ],
         ];
     }
 
@@ -40,9 +55,14 @@ class VideosController extends Controller
         $searchModel = new EntVideosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $videos = EntVideos::find()->all();
+        $concursos = CatConcurso::find()->all();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'videos' => $videos,
+            'concursos' => $concursos
         ]);
     }
 
@@ -72,15 +92,12 @@ class VideosController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
-            if ($model->subirVideo()) {
-                if ($model->save(false)) {
-                    return $this->redirect(['view', 'id' => $model->id_video]);
-                } else {
-                    print_r($model->errors);
-                    exit;
-                }
-
+            $model->b_publicado = 1;
+            if ($model->guardarRegistro()) {
+                return $this->redirect(['index']);
             }
+
+
         }
 
         return $this->render('create', [
@@ -118,9 +135,17 @@ class VideosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        $video = $this->findModel($id);
+        if ($video) {
+            if ($video->delete()) {
+                unlink(/*Url::base() . "/" .*/Yii::$app->params['path_videos'] . $video->txt_url);
+                return ['status' => 'success'];
+            }
+        }
+
+        return ['status' => 'error'];
     }
 
     /**
@@ -139,20 +164,21 @@ class VideosController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionPublicarVideo($id){
+    public function actionPublicarVideo($id)
+    {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $video = EntVideos::find()->where(['id_video'=>$id])->one();
+        $video = EntVideos::find()->where(['id_video' => $id])->one();
         $video->scenario = 'update';
 
         $video->b_publicado = 1;
-        if($video->save()){
+        if ($video->save()) {
 
-            return ['status'=>'success'];
-        }else{
+            return ['status' => 'success'];
+        } else {
             print_r($video->errors);
         }
 
-        return ['status'=>'error'];
+        return ['status' => 'error'];
     }
 }

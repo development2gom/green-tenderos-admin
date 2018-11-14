@@ -1,5 +1,5 @@
 <!-- Page -->
-<div class="page">
+<div class="page page-site">
     <div class="page-content">
       <?=$content?>
     </div>

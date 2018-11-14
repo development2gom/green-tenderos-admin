@@ -34,7 +34,7 @@ class CatTiendas extends \yii\db\ActiveRecord
         return [
             [['txt_clave_tienda', 'txt_clave_bodega'], 'required'],
             [['b_habilitado'], 'integer'],
-            [['txt_clave_tienda', 'txt_clave_bodega', 'txt_nombre'], 'string', 'max' => 50],
+            [['txt_clave_tienda', 'txt_clave_bodega', 'txt_nombre', 'txt_nud'], 'string', 'max' => 50],
             [['txt_clave_tienda'], 'unique'],
             [['txt_clave_bodega'], 'exist', 'skipOnError' => true, 'targetClass' => CatBodegas::className(), 'targetAttribute' => ['txt_clave_bodega' => 'txt_clave_bodega']],
         ];

@@ -37,7 +37,7 @@ class EntVideos extends \yii\db\ActiveRecord
             [['txt_nombre'], 'required'],
             [['txt_nombre', 'txt_url'], 'string', 'max' => 50],
             [['txt_url'], 'string', 'max' => 100],
-            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'on' => 'create', 'extensions' => 'mp4,WebM,Ogg'],
+            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'on' => 'create', 'extensions' => 'mp4,WebM,Ogg,mpeg4'],
             [['id_concurso'], 'exist', 'skipOnError' => true, 'targetClass' => CatConcurso::className(), 'targetAttribute' => ['id_concurso' => 'id_concurso']],
         ];
     }
@@ -63,17 +63,34 @@ class EntVideos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
     }
+    public function guardarRegistro()
+    {
+        $this->getPath();
+        if($this->save())
+        {
+           if($this->subirVideo())
+           {
+               return true;
+           }
+        }
+        return false;
+    }
     public function subirVideo()
     {
-        if($this->validate())
+       if($this->fileUpload && $this->fileUpload->saveAs($this->txt_url))
+       {
+        return true;
+       }
+          
+          return false;
+         
+    }
+    public function getPath()
+    {
+        if($this->fileUpload)
         {
             $path=Yii::$app->params['path_videos'].$this->txt_nombre.'.'.$this->fileUpload->extension;
-            $this->fileUpload->saveAs($path);
-           $this->txt_url=$path;
-            return true;
-        }
-        else{
-            return false;
+            $this->txt_url=$path;
         }
     }
 }
