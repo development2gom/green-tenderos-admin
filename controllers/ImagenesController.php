@@ -37,6 +37,7 @@ class ImagenesController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new EntImagenesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
