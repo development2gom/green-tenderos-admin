@@ -67,30 +67,27 @@ class EntImagenes extends \yii\db\ActiveRecord
     public function guardarRegistro()
     {
         $this->getPath();
-        if($this->save())
-        {
-            if($this->subirFoto())
-            {
+        if ($this->save()) {
+            if ($this->subirFoto()) {
                 return true;
             }
         }
     }
     public function subirFoto()
     {
-            if($this->fileUpload&&$this->fileUpload->saveAs($this->txt_url))
-            {
-                return true;
-            }      
-                 
-            return false;
-    
+        if ($this->fileUpload && $this->fileUpload->saveAs($this->txt_url)) {
+            return true;
+        }
+
+        return false;
+
     }
     public function getPath()
     {
-        if($this->fileUpload)
-        {
-            $path = Yii::$app->params['path_imagenes'].$this->txt_nombre.'.'.$this->fileUpload->extension;
-            $this->txt_url=$path;
+        if ($this->fileUpload) {
+            $path = Yii::$app->params['path_imagenes'] . $this->txt_nombre . '.' . $this->fileUpload->extension;
+
+            $this->txt_url = $path;
         }
     }
 }

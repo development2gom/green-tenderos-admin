@@ -12,7 +12,7 @@ use yii\helpers\Url;
           <li class="dropdown site-menu-item has-sub">
             <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
               <i class="site-menu-icon wb-stats-bars" aria-hidden="true"></i>
-              <span class="site-menu-title">Reportes</span>
+              <span class="site-menu-title">Carga</span>
               <span class="site-menu-arrow"></span>
             </a>
             <div class="dropdown-menu">
@@ -25,16 +25,36 @@ use yii\helpers\Url;
                           <span class="site-menu-title">Cargar data</span>
                         </a>
                       </li>
+                     
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+           <li class="dropdown site-menu-item has-sub">
+            <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
+              <i class="site-menu-icon wb-flag" aria-hidden="true"></i>
+              <span class="site-menu-title">Testimonios</span>
+              <span class="site-menu-arrow"></span>
+            </a>
+            <div class="dropdown-menu">
+              <div class="site-menu-scroll-wrap is-list">
+                <div>
+                  <div>
+                    <ul class="site-menu-sub site-menu-normal-list">
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/imagenes/index">
-                          <span class="site-menu-title">Cargar fotos</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/imagenes">
+                          <span class="site-menu-title">Fotos</span>
                         </a>
                       </li>
                       <li class="site-menu-item">
-                        <a class="animsition-link" href="<?=Url::base()?>/videos/index">
-                          <span class="site-menu-title">Cargar video</span>
+                        <a class="animsition-link" href="<?=Url::base()?>/videos">
+                          <span class="site-menu-title">Videos</span>
                         </a>
                       </li>
+                      
                     </ul>
                   </div>
                 </div>

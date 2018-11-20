@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "cat_concurso".
@@ -84,5 +85,16 @@ class CatConcurso extends \yii\db\ActiveRecord
     public function getWrkPuntuajeActuals()
     {
         return $this->hasMany(WrkPuntuajeActual::className(), ['id_concurso' => 'id_concurso']);
+    }
+
+    public static function getConcursoActual(){
+
+        
+
+        $concursoActual = CatConcurso::find()->where(['between', 'date', "fch_inicio", "fch_fin" ])->one();
+
+        if(!$concursoActual){
+            throw new HttpException(404, "No existe concurso actual");
+        }
     }
 }

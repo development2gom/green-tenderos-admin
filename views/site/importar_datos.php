@@ -2,52 +2,53 @@
 use yii\helpers\Url;
 use app\assets\AppAsset;
 
+$this->title = 'Cargar exel';
 $this->registerJsFile(
     '@web/webAssets/js/site/importar.js',
     ['depends' => [AppAsset::className()]]
 );
 
-$this->registerCssFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.css',
-    ['depends' => [AppAsset::className()]]
-);
+// $this->registerCssFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.css',
+//     ['depends' => [AppAsset::className()]]
+// );
 $this->registerCssFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.css',
     ['depends' => [AppAsset::className()]]
 );
 
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-load-image/load-image.all.min.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-process.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-image.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-audio.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-video.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-validate.js',
-    ['depends' => [AppAsset::className()]]
-);
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-ui.js',
-    ['depends' => [AppAsset::className()]]
-);
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-load-image/load-image.all.min.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-process.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-image.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-audio.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-video.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-validate.js',
+//     ['depends' => [AppAsset::className()]]
+// );
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/global/vendor/blueimp-file-upload/jquery.fileupload-ui.js',
+//     ['depends' => [AppAsset::className()]]
+// );
 $this->registerJsFile(
     '@web/webAssets/templates/classic/global/vendor/dropify/dropify.min.js',
     ['depends' => [AppAsset::className()]]
@@ -56,10 +57,10 @@ $this->registerJsFile(
     '@web/webAssets/templates/classic/global/js/Plugin/dropify.js',
     ['depends' => [AppAsset::className()]]
 );
-$this->registerJsFile(
-    '@web/webAssets/templates/classic/topbar/assets/examples/js/forms/uploads.js',
-    ['depends' => [AppAsset::className()]]
-);
+// $this->registerJsFile(
+//     '@web/webAssets/templates/classic/topbar/assets/examples/js/forms/uploads.js',
+//     ['depends' => [AppAsset::className()]]
+// );
 
 ?>
 
@@ -82,8 +83,8 @@ $this->registerJsFile(
             </button>
         </div> -->
 
-        <form action="#">
-            <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="xlsx" data-default-file="" />
+        <form>
+            <input type="file" class="js-input-file" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>"/>
         </form>
         
     </div>
