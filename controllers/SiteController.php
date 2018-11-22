@@ -288,6 +288,40 @@ class SiteController extends Controller
         return $this->render('importar_datos');
     }
 
+    public function actionImportarDataTest(){  
+
+        if(Yii::$app->request->isPost){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            $file = UploadedFile::getInstanceByName('file-import');
+            
+            if($file){
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+                $spreadsheet = $reader->load($file->tempName);
+                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+                print_r($sheetData);
+                exit;
+                $transaction = Yii::$app->db->beginTransaction();
+                
+                // foreach($sheetData as  $key => $data){
+                //   print_r($data);
+                // }
+                $transaction->commit();
+
+                return [
+                    'status' => 'success'
+                ];
+            }
+
+            return [
+                'status' => 'error'
+            ];
+        }
+
+        return $this->render('importar_datos');
+    }
+
     public function actionImportarDatos(){  
 
         if(Yii::$app->request->isPost){

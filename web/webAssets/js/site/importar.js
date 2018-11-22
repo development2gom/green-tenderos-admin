@@ -7,7 +7,7 @@ $(document).ready(function(){
         var input = $(this);
 
         $.ajax({
-            url: url + '/site/importar-datos',
+            url: url + '/site/importar-data-test',
             type: 'POST',
             data: formData,
             contentType: false,
