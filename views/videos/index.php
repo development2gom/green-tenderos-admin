@@ -124,7 +124,7 @@ $this->registerCssFile(
                         <div class="card card-shadow">
                             <figure class="card-img-top overlay-hover overlay">
                                 <video class="overlay-video overlay-figure overlay-scale">
-                                    <source src="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>" type="video/mp4">
+                                    <source src="<?= Url::base() ?>/<?= $video->txt_url ?>" type="video/mp4">
                                     <!-- <source src="video.ogg" type="video/ogg">
                                     <source src="video.webm" type="video/webm"> -->
                                     Tu navegar no soporta la etiqueta de video.
