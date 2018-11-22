@@ -9,7 +9,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntVideos */
 /* @var $form yii\widgets\ActiveForm */
-$Concursovideo = CatConcurso::find()->where(['b_habilitado' => 1])->OrderBy('txt_nombre ASC')->all();
+$Concursovideo = CatConcurso::find()->where(['b_habilitado' => 1])->all();
 ?>
 
 <?php $form = ActiveForm::begin(); ?>

@@ -9,7 +9,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\EntImagenes */
 /* @var $form yii\widgets\ActiveForm */
-$concurso =CatConcurso::find()->where(['b_habilitado' => 1])->OrderBy('id_concurso ASC')->all();
+$concurso =CatConcurso::find()->where(['b_habilitado' => 1])->all();
 ?>
 
 

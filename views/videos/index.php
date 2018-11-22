@@ -124,14 +124,14 @@ $this->registerCssFile(
                         <div class="card card-shadow">
                             <figure class="card-img-top overlay-hover overlay">
                                 <video class="overlay-video overlay-figure overlay-scale">
-                                    <source src="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>" type="video/mp4">
+                                    <source src="<?= Url::base() ?>/<?= $video->txt_url ?>" type="video/mp4">
                                     <!-- <source src="video.ogg" type="video/ogg">
                                     <source src="video.webm" type="video/webm"> -->
                                     Tu navegar no soporta la etiqueta de video.
                                 </video> 
 
                                 <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
-                                    <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/videos-ganadores/<?= $video->txt_url ?>"></a>
+                                    <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/<?= $video->txt_url ?>"></a>
                                     <a class="icon wb-trash js-delete-video" href="#" data-url="<?= Url::base() ?>" data-id=<?= $video->id_video ?> ></a>
                                     <a class="icon wb-pencil" href="<?= Url::base() . "/videos/update/" . $video->id_video ?>"></a>
                                     <p class="card-block"><?= $video->txt_nombre ?></p>
