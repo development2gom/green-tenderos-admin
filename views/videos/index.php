@@ -136,6 +136,7 @@ $this->registerCssFile(
                                     <a class="icon wb-trash js-delete-video" href="#" data-url="<?= Url::base() ?>" data-id=<?= $video->id_video ?> ></a>
                                     <a class="icon wb-pencil" href="<?= Url::base() . "/videos/update/" . $video->id_video ?>"></a>
                                     <p class="card-block"><?= $video->txt_nombre ?></p>
+                                   
                                 </figcaption>
                             </figure>
                         </div>

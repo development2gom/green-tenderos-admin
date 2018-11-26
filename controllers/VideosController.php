@@ -116,7 +116,7 @@ class VideosController extends Controller
         $model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_video]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -134,7 +134,7 @@ class VideosController extends Controller
     public function actionDelete($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
+        print_r($id);exit;
         $video = $this->findModel($id);
         if ($video) {
             if ($video->delete()) {
@@ -175,8 +175,9 @@ class VideosController extends Controller
             return ['status' => 'success'];
         } else {
             print_r($video->errors);
+            return ['status' => 'error'];
         }
 
-        return ['status' => 'error'];
+        return $this->render('index');
     }
 }
