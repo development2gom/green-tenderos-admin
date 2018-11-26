@@ -6,6 +6,8 @@ $(document).ready(function(){
         console.log(formData);
         var input = $(this);
 
+        $(".js-loader").show();
+
         $.ajax({
             url: url + '/site/importar-data-test',
             type: 'POST',
@@ -16,9 +18,10 @@ $(document).ready(function(){
                 if(resp.status == "success"){
                     swal("Correcto", "Los datos se guardaron correctamente", "success");
                 }else{
-                    swal("Espera", "Hubo un error, intentelo de nuevo", "warning");
+                    swal("Espera", "Hubo un error, intentelo de nuevo. Error:"+resp.message, "warning");
                 }
                 input.val('');
+                $(".js-loader").hide();
             },
             error: function(){
                 //swal("Espera", "Hubo un error, intentelo de nuevo", "warning");                

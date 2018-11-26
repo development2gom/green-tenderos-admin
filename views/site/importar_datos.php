@@ -90,3 +90,5 @@ $this->registerJsFile(
     </div>
 
 </div>
+
+<?=$this->render("loader")?>

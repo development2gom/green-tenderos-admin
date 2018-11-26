@@ -17,6 +17,7 @@ use app\models\WrkHistorial;
 use app\models\CatNiveles;
 use app\models\WrkPuntuajeActual;
 use app\models\Constantes;
+use yii\web\HttpException;
 
 class SiteController extends Controller
 {
@@ -289,37 +290,77 @@ class SiteController extends Controller
     }
 
     public function actionImportarDataTest(){  
-
+        
         if(Yii::$app->request->isPost){
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-            $file = UploadedFile::getInstanceByName('file-import');
-            
-            if($file){
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
-                $spreadsheet = $reader->load($file->tempName);
-                $sheetData = $spreadsheet->getActiveSheet()->toArray();
-                print_r($sheetData);
-                exit;
-                $transaction = Yii::$app->db->beginTransaction();
+            $respuesta = [];
+            try{
+                $file = UploadedFile::getInstanceByName('file-import');
                 
-                // foreach($sheetData as  $key => $data){
-                //   print_r($data);
-                // }
-                $transaction->commit();
+        
+            
+                if(!$file->saveAs('temporales/data.' . $file->extension)){
+                    throw new HttpException(500, "El archivo no se pudo guardar temporalmente falla de escritura en el disco.");   
+                }
 
-                return [
-                    'status' => 'success'
+
+                $this->importData();
+                $respuesta= [
+                    "status"=>"success"
+                ];
+
+                
+            }catch(\Exception $e){
+                $respuesta= [
+                    "status"=>"error",
+                    "message"=>$e->getMessage()
                 ];
             }
-
-            return [
-                'status' => 'error'
-            ];
+            
+            return $respuesta; 
         }
+    }
 
-        return $this->render('importar_datos');
+
+    public function importData(){
+
+        $dropearTabla = "TRUNCATE TABLE `wrk_concursos_resultados`;";
+        $items = Yii::$app->db->createCommand($dropearTabla);
+
+        $items = $items->query();
+
+        $sql = "
+        LOAD DATA LOW_PRIORITY LOCAL INFILE 'temporales/data.csv' 
+        INTO TABLE `gomcommx_dev-green-tenderos`.`wrk_concursos_resultados` 
+        FIELDS TERMINATED BY ',' 
+        OPTIONALLY ENCLOSED BY '\"' 
+        ESCAPED BY '\"'
+        LINES TERMINATED BY '\\r\\n' 
+        IGNORE 1 LINES
+        (@uddi, @txt_region, @txt_zona, @txt_bodega, @txt_descripcion, @txt_nud, @txt_nombre, @num_anterior, @num_mes, @num_total, @txt_folio, @txt_leyenda, @txt_sorteo)
+        SET uddi = @uddi,
+            txt_region = @txt_region, 
+            txt_zona = @txt_zona, 
+            txt_bodega = @txt_bodega, 
+            txt_descripcion = @txt_descripcion, 
+            txt_nud = @txt_nud, 
+            txt_nombre = @txt_nombre, 
+            num_anterior = @num_anterior, 
+            num_mes = @num_mes, 
+            num_total = @num_total, 
+            txt_folio = @txt_folio, 
+            txt_leyenda = @txt_leyenda, 
+            txt_sorteo = @txt_sorteo;";
+
+        $items = Yii::$app->db->createCommand($sql);
+
+        $items = $items->query();
+
+        $tiendasFaltantes = "INSERT INTO cat_tiendas (txt_clave_tienda, txt_clave_bodega, txt_nud, txt_nombre)
+        (select G.uddi, G.txt_bodega, G.txt_nud, G.txt_nombre FROM wrk_concursos_resultados G where G.uddi not in (select T.txt_clave_tienda FROM cat_tiendas T))";
+
+        $items = Yii::$app->db->createCommand($sql);
+
     }
 
     public function actionImportarDatos(){  
