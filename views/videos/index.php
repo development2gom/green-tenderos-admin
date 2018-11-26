@@ -132,7 +132,7 @@ $this->registerCssFile(
                                 </video> 
 
                                 <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
-                                    <a class="icon wb-search mfp-iframe" href="<?= Url::base() ?>/<?= $video->txt_url ?>"></a>
+                                    <a class="icon wb-search mfp-iframe" href="<?= $video->txt_url ?>"></a>
                                     <a class="icon wb-trash js-delete-video" href="#" data-url="<?= Url::base() ?>" data-id=<?= $video->id_video ?> ></a>
                                     <a class="icon wb-pencil" href="<?= Url::base() . "/videos/update/" . $video->id_video ?>"></a>
                                     <p class="card-block"><?= $video->txt_nombre ?></p>
