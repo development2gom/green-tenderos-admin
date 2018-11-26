@@ -324,11 +324,6 @@ class SiteController extends Controller
 
     public function importData(){
 
-        $dropearTabla = "TRUNCATE TABLE `wrk_concursos_resultados`;";
-        $items = Yii::$app->db->createCommand($dropearTabla);
-
-        $items = $items->query();
-
         $sql = "
         LOAD DATA LOW_PRIORITY LOCAL INFILE 'temporales/data.csv' 
         INTO TABLE `gomcommx_dev-green-tenderos`.`wrk_concursos_resultados` 
