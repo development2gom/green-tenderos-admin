@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use app\assets\AppAsset;
 
-$this->title = 'Cargar exel';
+$this->title = 'Cargar información';
 $this->registerJsFile(
     '@web/webAssets/js/site/importar.js',
     ['depends' => [AppAsset::className()]]
@@ -84,9 +84,15 @@ $this->registerJsFile(
         </div> -->
 
         <form>
-            <input type="file" class="js-input-file" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="csv" />
+            <input type="file" class="dropify" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="csv" />
         </form>
-        
+
+       
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-block js-input-file">Subir información</button>
+            </div>
+        </div>
     </div>
 
 </div>
