@@ -85,14 +85,15 @@ $this->registerJsFile(
 
         <form>
             <input type="file" class="dropify" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="csv" />
+        
+       
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-block js-input-file">Subir información</button>
+                </div>
+            </div>
         </form>
 
-       
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary btn-block js-input-file">Subir información</button>
-            </div>
-        </div>
     </div>
 
 </div>

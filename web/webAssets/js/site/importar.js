@@ -46,7 +46,7 @@ $(document).ready(function(){
                 },
                 error: function(){
                     //swal("Espera", "Hubo un error, intentelo de nuevo", "warning");                
-                    input.val('');
+                    //input.val('');
                 }
             });
         }
