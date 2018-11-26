@@ -67,7 +67,7 @@ $this->registerJsFile(
 <div class="page-datos">
 
     <div class="page-title">
-        <h2>Cargar archivo excel</h2>
+        <h2>Cargar archivo CSV</h2>
         <hr>
     </div>
 
@@ -84,7 +84,7 @@ $this->registerJsFile(
         </div> -->
 
         <form>
-            <input type="file" class="js-input-file" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>"/>
+            <input type="file" class="js-input-file" name="file-import" data-plugin="dropify" data-url="<?= Url::base() ?>" data-allowed-file-extensions="csv" />
         </form>
         
     </div>
