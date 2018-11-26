@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\grid\GridView;
+use app\models\EntVideos;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EntVideosSearch */
@@ -123,8 +124,8 @@ $this->registerCssFile(
                     <div class="col-md-4 js-video-<?= $video->id_video ?>" data-type="<?= $concurso->id_concurso ?>">
                         <div class="card card-shadow">
                             <figure class="card-img-top overlay-hover overlay">
-                                <video class="overlay-video overlay-figure overlay-scale">
-                                    <source src="<?= Url::base() ?>/<?= $video->txt_url ?>" type="video/mp4">
+                                <video class="overlay-video overlay-figure overlay-scale" style="background-image: url('http://img.youtube.com/vi/<?= EntVideos::getIdVideoYoutube($video->txt_url) ?>/mqdefault.jpg') ">
+                                    <source src="http://img.youtube.com/vi/<?= EntVideos::getIdVideoYoutube($video->txt_url) ?>/mqdefault.jpg">
                                     <!-- <source src="video.ogg" type="video/ogg">
                                     <source src="video.webm" type="video/webm"> -->
                                     Tu navegar no soporta la etiqueta de video.

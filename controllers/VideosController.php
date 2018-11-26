@@ -87,17 +87,15 @@ class VideosController extends Controller
     public function actionCreate()
     {
         $model = new EntVideos();
-        $model->scenario = 'create';
+        //$model->scenario = 'create';
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
+            //$model->fileUpload = UploadedFile::getInstance($model, 'fileUpload');
             $model->b_publicado = 1;
-            if ($model->guardarRegistro()) {
+            if($model->save()){
                 return $this->redirect(['index']);
             }
-
-
         }
 
         return $this->render('create', [
