@@ -6,7 +6,7 @@ $(document).ready(function(){
     $(".js-delete-video").on('click', function(){
         var id = $(this).data('id');
         var url = $(this).data('url');
-
+       
         $.ajax({
             url: url+'/videos/delete/'+id,
             success: function(resp){
