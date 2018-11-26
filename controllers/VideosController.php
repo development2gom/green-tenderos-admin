@@ -134,11 +134,11 @@ class VideosController extends Controller
     public function actionDelete($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        print_r($id);exit;
+        
         $video = $this->findModel($id);
         if ($video) {
             if ($video->delete()) {
-                unlink(/*Url::base() . "/" .*/Yii::$app->params['path_videos'] . $video->txt_url);
+                //unlink(/*Url::base() . "/" .*/Yii::$app->params['path_videos'] . $video->txt_url);
                 return ['status' => 'success'];
             }
         }
