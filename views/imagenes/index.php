@@ -129,7 +129,7 @@ $this->registerJsFile(
                         <img class="overlay-figure overlay-scale" src="<?= Url::base() ?>/<?= $imagen->txt_url ?>"
                         alt="...">
                         <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
-                          <a class="icon wb-search" href="<?= Url::base() ?>/<?= $imagen->txt_url ?>"></a>
+                          <a class="icon wb-search wb-image" href="<?= Url::base() ?>/<?= $imagen->txt_url ?>"></a>
                           <a class="icon wb-trash js-delete-imagen" href="#" data-url="<?= Url::base() ?>" data-id=<?= $imagen->id_imagen ?> ></a>
                           <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
                           <p class="card-block"><?= $imagen->txt_nombre ?></p>
