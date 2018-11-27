@@ -25,8 +25,7 @@ $Concursovideo = CatConcurso::find()->where(['b_habilitado' => 1])->all();
         </div>
 
         <div class="col-12">
-            <?php // $form->field($model, 'fileUpload')->fileInput(['data-plugin' => 'dropify']) ?>
-            <?= $form->field($model, 'txt_url')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'fileUpload')->fileInput(['data-plugin' => 'dropify']) ?>
             <!-- <input type="file" class="js-input-file" id="input-file-now" data-plugin="dropify" data-allowed-file-extensions="" data-default-file="" /> -->
         </div>
         

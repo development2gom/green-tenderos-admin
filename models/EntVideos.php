@@ -34,10 +34,10 @@ class EntVideos extends \yii\db\ActiveRecord
         return [
             [['fileUpload'], 'file', 'skipOnEmpty' => true, 'on' => 'update'],
             [['id_concurso', 'b_habilitado', 'b_publicado'], 'integer'],
-            [['txt_nombre', 'txt_url'], 'required'],
-            [['txt_nombre'], 'string', 'max' => 50],
-            [['txt_url'], 'string', 'max' => 200],
-            //[['fileUpload'], 'file', 'skipOnEmpty' => true, 'on' => 'create', 'extensions' => 'mp4,WebM,Ogg,mpeg4'],
+            [['txt_nombre'], 'required'],
+            [['txt_nombre', 'txt_url'], 'string', 'max' => 50],
+            [['txt_url'], 'string', 'max' => 100],
+            [['fileUpload'], 'file', 'skipOnEmpty' => false, 'on' => 'create', 'extensions' => 'mp4,WebM,Ogg,mpeg4'],
             [['id_concurso'], 'exist', 'skipOnError' => true, 'targetClass' => CatConcurso::className(), 'targetAttribute' => ['id_concurso' => 'id_concurso']],
         ];
     }
@@ -63,7 +63,6 @@ class EntVideos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
     }
-
     public function guardarRegistro()
     {
         $this->getPath();
@@ -76,7 +75,6 @@ class EntVideos extends \yii\db\ActiveRecord
         }
         return false;
     }
-
     public function subirVideo()
     {
        if($this->fileUpload && $this->fileUpload->saveAs($this->txt_url))
@@ -87,7 +85,6 @@ class EntVideos extends \yii\db\ActiveRecord
           return false;
          
     }
-    
     public function getPath()
     {
         if($this->fileUpload)
@@ -96,14 +93,4 @@ class EntVideos extends \yii\db\ActiveRecord
             $this->txt_url=$path;
         }
     }
-
-    public static function getIdVideoYoutube($url) {
-		parse_str ( parse_url ( $url, PHP_URL_QUERY ), $params );
-		
-		if (key_exists ( 'v', $params )) {
-			return $params ['v'];
-		}
-		
-		return null;
-	}
 }
