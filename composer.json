@@ -25,7 +25,8 @@
         "johnitvn/yii2-ajaxcrud": "*",
         "kartik-v/yii2-export": "*",
         "consik/yii2-websocket": "^1.0",
-        "phpoffice/phpspreadsheet": "^1.0"
+        "phpoffice/phpspreadsheet": "^1.0",
+        "yiisoft/yii2-imagine": "^2.1"
 
     },
     "require-dev": {

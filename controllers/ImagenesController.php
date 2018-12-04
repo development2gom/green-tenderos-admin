@@ -148,7 +148,7 @@ class ImagenesController extends Controller
         $imagen = $this->findModel($id);
         if ($imagen) {
             if ($imagen->delete()) {
-                unlink(/*Url::base() . "/" .*/Yii::$app->params['path_imagenes'] . $imagen->txt_url);
+                unlink(/*Url::base() . "/" .*/$imagen->txt_url);
                 return ['status' => 'success'];
             }
         }

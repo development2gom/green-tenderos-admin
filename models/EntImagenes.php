@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use Codeception\Lib\Connector\Yii1;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "ent_imagenes".
@@ -76,6 +77,9 @@ class EntImagenes extends \yii\db\ActiveRecord
     public function subirFoto()
     {
         if ($this->fileUpload && $this->fileUpload->saveAs($this->txt_url)) {
+
+            Image::autorotate($this->txt_url);
+
             return true;
         }
 
