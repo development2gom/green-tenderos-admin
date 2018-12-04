@@ -80,23 +80,27 @@ class EntImagenes extends \yii\db\ActiveRecord
     {
         if ($this->fileUpload && $this->fileUpload->saveAs($this->txt_url)) {
 
-            $image = Image::getImagine()->open($this->txt_url);
-            $exif = exif_read_data($this->txt_url);
-            if (!empty($exif['Orientation'])) {
-                switch ($exif['Orientation']) {
-                    case 3:
-                        $image->rotate(180);
-                        break;
-                    case 6:
-                        $image->rotate(90);
-                        break;
+            try{
+                $image = Image::getImagine()->open($this->txt_url);
+                $exif = exif_read_data($this->txt_url);
+                if (!empty($exif['Orientation'])) {
+                    switch ($exif['Orientation']) {
+                        case 3:
+                            $image->rotate(180);
+                            break;
+                        case 6:
+                            $image->rotate(90);
+                            break;
 
-                    case 8:
-                        $image->rotate(-90);
-                        break;
+                        case 8:
+                            $image->rotate(-90);
+                            break;
+                    }
                 }
-            }
-            $image->save($this->txt_url, ['jpeg_quality' => 60]);
+                $image->save($this->txt_url, ['jpeg_quality' => 60]);
+            }catch (Exception $exp) {
+
+           }     
 
             return true;
         }
