@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use Codeception\Lib\Connector\Yii1;
 use yii\imagine\Image;
+use yii\base\ErrorException;
 
 /**
  * This is the model class for table "ent_imagenes".
@@ -98,7 +99,7 @@ class EntImagenes extends \yii\db\ActiveRecord
                     }
                 }
                 $image->save($this->txt_url, ['jpeg_quality' => 60]);
-            }catch (Exception $exp) {
+            }catch (ErrorException $exp) {
 
            }     
 
