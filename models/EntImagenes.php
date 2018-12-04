@@ -65,6 +65,8 @@ class EntImagenes extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CatConcurso::className(), ['id_concurso' => 'id_concurso']);
     }
+
+
     public function guardarRegistro()
     {
         $this->getPath();
@@ -78,7 +80,23 @@ class EntImagenes extends \yii\db\ActiveRecord
     {
         if ($this->fileUpload && $this->fileUpload->saveAs($this->txt_url)) {
 
-            Image::autorotate($this->txt_url);
+            $image = Image::getImagine()->open($this->txt_url);
+            $exif = exif_read_data($this->txt_url);
+            if (!empty($exif['Orientation'])) {
+                switch ($exif['Orientation']) {
+                    case 3:
+                        $image->rotate(180);
+                        break;
+                    case 6:
+                        $image->rotate(90);
+                        break;
+
+                    case 8:
+                        $image->rotate(-90);
+                        break;
+                }
+            }
+            $image->save($this->txt_url, ['jpeg_quality' => 60]);
 
             return true;
         }
@@ -89,7 +107,7 @@ class EntImagenes extends \yii\db\ActiveRecord
     public function getPath()
     {
         if ($this->fileUpload) {
-            $path = Yii::$app->params['path_imagenes'] . $this->txt_nombre . '.' . $this->fileUpload->extension;
+            $path = Yii::$app->params['path_imagenes'] . $this->txt_nombre . uniqid().'.' . $this->fileUpload->extension;
 
             $this->txt_url = $path;
         }
