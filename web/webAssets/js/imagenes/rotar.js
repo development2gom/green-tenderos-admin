@@ -7,6 +7,11 @@ $(document).ready(function(){
         $.ajax({
             url: baseUrl+'imagenes/rotar?id='+id,
             success: function(resp){
+              
+               // var url =  $('.js-imagen-rotate-'+id).attr('src');
+                // $('.js-imagen-rotate-'+id).attr('src','');
+                // $('.js-imagen-rotate-'+id).attr('src',url);
+                $('.js-imagen-rotate-'+id).css('transform','rotate(90deg)');
                 // if(resp.status == 'success'){
                 //     toastr.success("Imagen eliminada correctamente.");
                 //     $('.js-imagen-'+id).remove();

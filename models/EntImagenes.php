@@ -109,14 +109,14 @@ class EntImagenes extends \yii\db\ActiveRecord
         return false;
 
     }
-    public function rotarFoto($url)
+    public function rotarFoto()
     {
-        $imagen = Image::getImagine()->open($url);
+        $imagen = Image::getImagine()->open($this->txt_url);
         //->open($this->txt_url);
 
         if($imagen){
-            $image->rotate(180);
-            $image->save($this->txt_url, ['jpeg_quality' => 60]);
+            $imagen->rotate(90);
+            $imagen->save($this->txt_url, ['jpeg_quality' => 60]);
         }
         return $imagen;
     }
