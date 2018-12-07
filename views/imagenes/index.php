@@ -76,6 +76,11 @@ $this->registerJsFile(
   '@web/webAssets/js/imagenes/index.js',
   ['depends' => [\app\assets\AppAsset::className()]]
 );
+
+$this->registerJsFile(
+  '@web/webAssets/js/imagenes/rotar.js',
+  ['depends' => [\app\assets\AppAsset::className()]]
+);
 ?>
 
 
@@ -126,12 +131,13 @@ $this->registerJsFile(
             <div class="col-md-4 js-imagen-<?= $imagen->id_imagen ?>" data-type="<?= $concurso->id_concurso ?>">
                 <div class="card card-shadow">
                     <figure class="card-img-top overlay-hover overlay">
-                        <img class="overlay-figure overlay-scale" src="<?= Url::base() ?>/<?= $imagen->txt_url ?>"
+                        <img class="overlay-figure overlay-scale js-imagen-rotate-<?=$imagen->id_imagen?>" src="<?= Url::base() ?>/<?= $imagen->txt_url ?>"
                         alt="...">
                         <figcaption class="overlay-panel overlay-background overlay-fade overlay-icon">
                           <a class="icon wb-search wb-image" href="<?= Url::base() ?>/<?= $imagen->txt_url ?>"></a>
                           <a class="icon wb-trash js-delete-imagen" href="#" data-url="<?= Url::base() ?>" data-id=<?= $imagen->id_imagen ?> ></a>
                           <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
+                          <a class="icon ion-ios-undo js-rotar-imagen"  data-id="<?= $imagen->id_imagen ?>"></a>
                           <p class="card-block"><?= $imagen->txt_nombre ?></p>
                         </figcaption>
                     </figure>

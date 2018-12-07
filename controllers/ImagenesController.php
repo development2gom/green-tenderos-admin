@@ -189,4 +189,13 @@ class ImagenesController extends Controller
 
         return ['status' => 'error'];
     }
+    public function actionRotar($id)
+    {
+        //$id =19;
+        $imagen = EntImagenes::find()->where(['id_imagen'=>$id])->one();
+        //print_r($imagen);
+        $imagen->rotarFoto();
+       // $imagen = EntImagenes::rotarFoto($imagen->txt_url);
+
+    }
 }
