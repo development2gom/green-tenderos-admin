@@ -31,7 +31,7 @@ $(document).ready(function(){
          var id = $(this).data('id');
  
          $.ajax({
-             url: baseUrl+'imagenes/rotar?id='+id,
+             url: baseUrl+'imagenes/voltear?id='+id,
              success: function(resp){
                
                 // var url =  $('.js-imagen-rotate-'+id).attr('src');
