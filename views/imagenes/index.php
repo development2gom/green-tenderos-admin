@@ -138,6 +138,8 @@ $this->registerJsFile(
                           <a class="icon wb-trash js-delete-imagen" href="#" data-url="<?= Url::base() ?>" data-id=<?= $imagen->id_imagen ?> ></a>
                           <a class="icon wb-pencil" href="<?= Url::base() . "/imagenes/update/" . $imagen->id_imagen ?>"></a>
                           <a class="icon ion-ios-share-alt js-rotar-imagen"  data-id="<?= $imagen->id_imagen ?>"></a>
+                          <a class="icon ion-ios-share-alt js-voltear-imagen"  data-id="<?= $imagen->id_imagen ?>"></a>
+
                           <p class="card-block"><?= $imagen->txt_nombre ?></p>
                         </figcaption>
                     </figure>

@@ -198,4 +198,13 @@ class ImagenesController extends Controller
        // $imagen = EntImagenes::rotarFoto($imagen->txt_url);
 
     }
+    public function actionVoltear($id)
+    {
+        //$id =19;
+        $imagen = EntImagenes::find()->where(['id_imagen'=>$id])->one();
+        //print_r($imagen);
+        $imagen->voltearFoto();
+       // $imagen = EntImagenes::rotarFoto($imagen->txt_url);
+
+    }
 }

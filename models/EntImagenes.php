@@ -120,6 +120,17 @@ class EntImagenes extends \yii\db\ActiveRecord
         }
         return $imagen;
     }
+    public function voltearFoto()
+    {
+        $imagen = Image::getImagine()->open($this->txt_url);
+        //->open($this->txt_url);
+
+        if($imagen){
+            $imagen->rotate(-90);
+            $imagen->save($this->txt_url, ['jpeg_quality' => -60]);
+        }
+        return $imagen;
+    }
     public function getPath()
     {
         if ($this->fileUpload) {
